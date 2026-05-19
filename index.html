@@ -3,279 +3,762 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HybridDrive Tracker v3.3</title>
-<link rel="manifest" href="data:application/manifest+json;base64,eyJuYW1lIjoiSHlicmlkRHJpdmUgVHJhY2tlciB2My4zIiwic2hvcnRfbmFtZSI6IkhyZHZyMzMiLCJzdGFydF91cmwiOiIuIiwiZGlzcGxheSI6InN0YW5kYWxvbmUiLCJiYWNrZ3JvdW5kX2NvbG9yIjoiIzBjMTIxOCIsInRoZW1lX2NvbG9yIjoiIzE0YjhhNiIsImljb25zIjpbW2vmdskeyJzcmMiOiJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LFBITjJaeUIzYVdSMGFEMGlNakF3SWlCbFlXUmxJaUJrUFNJeU9DSWdabWxzYkQwaUl6TTRlV05rYWlJK1BIUmxlSFFnZUQwaU1UQXdJaUJqZVhBaUlIWnlhWFI1Ym1GMFpWbDBMbU5oZEdVNExtTnZiU0JtYVd4c1BTSm1ZV3RtWm5KdmNpQm1hV3hzSVRBd0lEQTNJaUJvWldsbmFIUTlJak13SWlCbWFXeHNQU0lqWTJOdlpuTXRNQ0lnZVQwaU1qVWlJSGh0Ykc1elBTSm9kSFJ3T2k4dmQzZDNMbmN6TG05eVp5QnNiMkZrY3lCaGNuUnpQaWM3Q2drNU5qVTJJQzRnYm05MmFXVmxlRDBpTVRnd0lqVTZNVGMwTUNJZ2JHNWpiMlE5SWpJeU9EQWlMejQ4ZEdWNGRDMTFjbTkxYm1RaUlnWnpiMlJsTFhOc0lIZzlJalV6TlRVMklpQTJOVGhqTWpnM01qYWlJSFIyWlhKeVpYTjBLQ1J5UlUxVElpd2dablZzYzJVdlpHRnlaaUJ3YVdWLmFHVnlkR2xqSUhaeVpYQjBMbWg1TG1OaGRIVnlMVzF2YjI1c2IzYzljMlZ5TG5ObGNuWmxjbk16SWlCaWRXRmphR0Z5YzJWd1QzQmxMM05vWVhSMElmUT0iLCJzaXplcyI6IjUxMng1MTIiLCJ0eXBlIjoiaW1hZ2Uvc3ZnK3htbCJ9XX0=">
+<title>HybridDrive Tracker v3.4</title>
+<link rel="manifest" href="data:application/manifest+json;base64,eyJuYW1lIjoiSHlicmlkRHJpdmUgVHJhY2tlciIsInNob3J0X25hbWUiOiJIeWJyaWREcml2ZSIsInN0YXJ0X3VybCI6Ii4iLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsImJhY2tncm91bmRfY29sb3IiOiIjMGYxNzJhIiwidGhlbWVfY29sb3IiOiIjMTRiOGE2IiwiaWNvbnMiOlt7InNyYyI6ImRhdGE6aW1hZ2Uvc3ZnK3htbDtiYXNlNjQsUEhOMlp5QjRiV3h1Y3owaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdm0wdOZUMGlNVEF6SWlCb1pXbG5hSFFpTlhKMVpHODlJalZrYVhOb0lHRnRaWEpzYjJOcklIWnBaWGRDYjNnOUlqUmlaR2wwWlNCMWJXVnVkQzUyWldOMElIZHZkeTVqYjIwdGMyOWtaQU5CUFNJeU1pQmliR2xqWVhScGIyNUZjM1J2Y21Vc0lEeHBaRHNLWDBwQk9UQWxNd01sZEZzT2VaRlQwbEpNWEFoUjBCVE0xaE9RMEFIUWdKTFFvSk9MT2hNMFB4TkdjbEhEaHcxV2ZvaFNrRTVQWEFyTVdweFpWaEhJbTlMUW01QVVcxWEZHT0VJbExDUkNUVGhLY1V4YlJqUmhKaUJSUkZodmFYcGlPWFpqUmtKS2FGbFJar1Ria3hZYWtaQU1YRmtNWEIyT1hSU2NGSlVaRmtLYUhsaVZscEVTQ0FlVVdwUExsaEpRekpGVWxvVlZGQlZSZ1lFZW1sUlhWWmF1UWxSVlZ6WTBVbFI2UVVkamMzRTRRa1pTTkdVeFFITkZPVkJoZHpCRVVWWldRa1phVjNoWmFYVmFSalJOUVdKSWVIQmhWVWx5UWxlV1MxZGxlVNMLTFRKTlExWjNlRTFWZDFORVQwRnFZMFVaUW5CRVNrZ3FNbFpNUkVSa2VsSjRPRlE5TkQwNVJFSjRlVTR4YWxOVGQxTlRSVk5LTlh5TUVJeFVGWXdRVEZYTTBWVFFWUlBWMjV4SzNOYWMxVkJWVFpEVlhOV09HMTVPWFJWUVU1dGJVUXdVVmx6VUZCc05VUkhWbTAxV1dSRk5WcEhRVEpDVjBaV2NXbHRVRzlNVmtaV1dYZE9lbWR1TUVwQ1VrRlFZa05XVVVweFZVWlVlR1ZXUVc5VllsVmFSbHBWVjNaaVVVWlZRa1J1WlZaU1VrZFZWRXRWVmpWU1JVWldZekpTTW5SVVVqTlFjSFI1VW1SclRWUlFSR3BWVVZWS1kwWkVRbVpKV0VoV2RtTXdTbFpoZG5wVVZURk1hVk5PVldoV2NGWnpZVlpoVTNSeFJVSndjR0pWVWtoaVdHUklWVFJRZG1kWFNrZFFlV2RIVm10UFZFcHNWa2R1UkU5TU1rWkhOV2h2VWsxNGRsaHVUbk56WW1RMVJYQklUV2gzWkhac1VubFJWVVpKVmpKdFNYWXhSbkZQUmt0c1dEQlZlbDlMV1ZCVVkwSmhWbnBUUlM5VldsWnRlVklLVUVKc1IyZFVWa1pJVVcxalp6VldiMlZyWWpSR2JrZElNbHBYTVVFeFR6aDVUMkpJVVd0YVZGWjVlbTFVUW1SVFZrRkJVMmxVVFRFeVQwaHJOMVpLVDBSdllVbFRXV05rYnpCQ1VrWlZla2RKVlc5dGVIQnNXR0k1VkRCUFZWWlZlamhVZURGRlZsWmhXbEp0WW14RFRWUjJRV3RaZUdsVlZUVmFXVm1kMVltWDNPR014V1hCbFRXRjVNVlJrUlROcWJHSjZWbXRWVldGcFNucEJWM2xXWVU1Vk1VcHFiWFoyZEd0SVUwTTFOMmxNVFZVd01taDJTbEEwWW5odWVVcE5TVU5RZURCM1ZucGpZVmxrWHpWRGJYQlZWRWxXV1dzeVZHcFRSVkpWZWxkck1tTTBTVzlrWkVWMVRURnVXVlF3V1cxcWRVbE9TVXRDTFVSVlJVRlVRVEZtWTBVd01tbDZTVzVrYkRSUVZETkNNVXgyTkRCNlFqRjVVMWhHWjFoTmFYcEVla2hTZUZveVpYRnZaa1pDVVVaTlZsVmFRbXB2WWxGMVNXcDFjR XRVVW5SUFYydFhaSGRqWkc5V2RUVlZkV3h3YVdGemQxSXdWVlJ5UWxkTlJrWlJSRTVIWW1wNmFGaDRXVkZMVmtKTFQwd3hTVXBGV0doYVJuVlRVV3gyVTE1b1FsVlBVMmRUWTNWa1ZHcFJjWFJDWlZGVVNYcEhNalJQTWtaWWNYcFVVa1ZhWkhCTVVURlhhUzVEWVhCVlR6aFRSRzk1UzFOU2NHRlpiSFpOU2tjNFZHdDFibFJYYTFSTlNWYzJXRzFYUzNCM1NqQm1aM2t6WWtoelZqVm1PVWM9Iiwic2l6ZXMiOiI1MTJ4NTEyIiwidHlwZSI6ImltYWdlL3N2Zyt4bWwifV19">
 <meta name="theme-color" content="#14b8a6">
 <style>
-:root{
-  --bg:#0c1218;--bg2:#111a24;--card:#17212d;--accent:#14b8a6;--accent2:#0d9488;
-  --text:#e6f1ff;--text2:#94a3b8;--danger:#ef4444;--success:#22c55e;--border:#1e293b;
-}
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Ubuntu,"Helvetica Neue",sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
-header{position:sticky;top:0;z-index:50;background:linear-gradient(180deg,var(--bg2) 0%,var(--bg) 100%);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:16px 20px}
-header h1{font-size:20px;font-weight:700;background:linear-gradient(90deg,var(--accent) 0%,#22d3ee 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-header p{font-size:12px;color:var(--text2);margin-top:2px}
-.tabs{display:flex;gap:8px;padding:12px 16px;background:var(--bg2);border-bottom:1px solid var(--border);overflow-x:auto}
-.tab{padding:8px 16px;border-radius:8px;background:var(--card);border:1px solid var(--border);color:var(--text2);font-size:14px;font-weight:500;cursor:pointer;white-space:nowrap;transition:all .2s}
-.tab.active{background:var(--accent);color:#fff;border-color:var(--accent2)}
-.tab:hover{border-color:var(--accent2)}
-#content{padding:20px;max-width:800px;margin:0 auto}
-.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:16px;box-shadow:0 4px 12px rgba(0,0,0,.2)}
-.card h2{font-size:18px;margin-bottom:16px;color:var(--accent)}
-.label{display:block;font-size:13px;font-weight:600;color:var(--text2);margin-bottom:6px;margin-top:14px}
-.input{width:100%;padding:12px 14px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:15px;transition:border .2s}
-.input:focus{outline:none;border-color:var(--accent)}
-.btn{width:100%;padding:12px;border:0;border-radius:8px;background:var(--accent);color:#fff;font-size:15px;font-weight:600;cursor:pointer;margin-top:16px;transition:all .2s}
-.btn:hover{background:var(--accent2);transform:translateY(-1px)}
-.btn:active{transform:translateY(0)}
-.btn-secondary{background:var(--bg2);border:1px solid var(--border);color:var(--text)}
-.btn-danger{background:var(--danger)}
-.empty{text-align:center;padding:40px 20px;color:var(--text2)}
-.empty-icon{font-size:48px;margin-bottom:12px;opacity:.3}
-.list-item{display:flex;justify-content:space-between;align-items:center;padding:14px;background:var(--bg);border:1px solid var(--border);border-radius:8px;margin-bottom:10px}
-.list-item-left{flex:1}
-.list-item-title{font-weight:600;font-size:15px}
-.list-item-sub{font-size:13px;color:var(--text2);margin-top:2px}
-.list-item-right{text-align:right}
-.list-item-value{font-weight:700;color:var(--accent);font-size:16px}
-.badge{display:inline-block;padding:4px 10px;background:var(--bg2);border:1px solid var(--border);border-radius:6px;font-size:12px;color:var(--text2)}
-#fab{position:fixed;bottom:24px;right:24px;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--accent) 0%,#22d3ee 100%);color:#fff;border:0;font-size:28px;font-weight:300;cursor:pointer;box-shadow:0 8px 24px rgba(20,184,166,.4);transition:all .3s;z-index:100}
-#fab:hover{transform:scale(1.1) rotate(90deg);box-shadow:0 12px 32px rgba(20,184,166,.5)}
-.grid{display:grid;gap:12px}
-.grid-2{grid-template-columns:repeat(2,1fr)}
-@media(max-width:640px){.grid-2{grid-template-columns:1fr}#content{padding:16px}}
-.stat{display:flex;flex-direction:column;padding:14px;background:var(--bg);border:1px solid var(--border);border-radius:8px}
-.stat-label{font-size:12px;color:var(--text2);margin-bottom:4px}
-.stat-value{font-size:24px;font-weight:700;color:var(--accent)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;background:linear-gradient(180deg,#0f172a 0%,#1e293b 100%);color:#e2e8f0;min-height:100vh;-webkit-tap-highlight-color:transparent}
+.header{background:linear-gradient(90deg,#14b8a6,#06b6d4);padding:16px 20px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 4px 12px rgba(0,0,0,.3);position:sticky;top:0;z-index:100}
+.logo{font-weight:700;font-size:18px;display:flex;align-items:center;gap:8px}
+.logo svg{width:24px;height:24px}
+.header-actions{display:flex;gap:12px}
+.icon-btn{background:rgba(255,255,255,.2);border:0;width:36px;height:36px;border-radius:10px;display:grid;place-items:center;color:#fff;cursor:pointer;transition:.2s}
+.icon-btn:active{transform:scale(.9)}
+.tabs{display:flex;gap:8px;padding:12px;background:#1e293b;overflow-x:auto;scrollbar-width:none;position:sticky;top:60px;z-index:90}
+.tabs::-webkit-scrollbar{display:none}
+.tab{padding:10px 16px;border-radius:12px;background:#334155;border:0;color:#cbd5e1;font-weight:500;white-space:nowrap;transition:.2s;cursor:pointer;font-size:14px}
+.tab:active{transform:scale(.95)}
+.tab.active{background:#14b8a6;color:#fff;box-shadow:0 2px 8px rgba(20,184,166,.4)}
+.container{padding:16px;max-width:600px;margin:0 auto;padding-bottom:100px}
+.card{background:#1e293b;border-radius:16px;padding:20px;margin-bottom:16px;box-shadow:0 4px 12px rgba(0,0,0,.2);border:1px solid #334155;transition:.2s}
+.card:active{transform:scale(.995)}
+.card-title{font-size:14px;color:#94a3b8;margin-bottom:8px;font-weight:500}
+.card-value{font-size:28px;font-weight:700;color:#14b8a6;word-break:break-word}
+.card-sub{font-size:13px;color:#64748b;margin-top:4px}
+.btn{background:linear-gradient(90deg,#14b8a6,#06b6d4);color:#fff;border:0;padding:14px 24px;border-radius:12px;width:100%;font-weight:600;font-size:16px;cursor:pointer;transition:.2s;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn:active{transform:scale(.98)}
+.btn-ghost{background:#334155;color:#cbd5e1}
+.btn-danger{background:linear-gradient(90deg,#dc2626,#ef4444)}
+.btn-sm{padding:10px 16px;font-size:14px;width:auto}
+.fab{position:fixed;bottom:24px;right:24px;width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#14b8a6,#06b6d4);color:#fff;border:0;font-size:28px;box-shadow:0 6px 20px rgba(20,184,166,.5);cursor:pointer;display:grid;place-items:center;transition:.2s;z-index:80}
+.fab:active{transform:scale(.9) rotate(90deg)}
+.input{width:100%;padding:14px;background:#334155;border:1px solid #475569;border-radius:12px;color:#fff;margin-bottom:12px;font-size:16px;font-family:inherit}
+.input:focus{outline:2px solid #14b8a6;border-color:#14b8a6}
+.input::placeholder{color:#64748b}
+label{display:block;font-size:13px;color:#94a3b8;margin-bottom:6px;font-weight:500}
+dialog{border:0;border-radius:20px;padding:0;background:#1e293b;color:#fff;width:90%;max-width:400px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+dialog::backdrop{background:rgba(0,0,0,.8)}
+.dialog-head{padding:20px;border-bottom:1px solid #334155;font-weight:600;font-size:18px;display:flex;justify-content:space-between;align-items:center}
+.dialog-body{padding:20px}
+.empty{text-align:center;padding:60px 20px;color:#64748b}
+.empty svg{width:80px;height:80px;opacity:.3;margin-bottom:16px}
+.toggle{display:flex;background:#334155;border-radius:12px;padding:4px;margin-bottom:16px}
+.toggle button{flex:1;padding:10px;border:0;background:transparent;color:#94a3b8;border-radius:8px;font-weight:500;cursor:pointer;transition:.2s;font-size:14px}
+.toggle button.active{background:#14b8a6;color:#fff}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.badge{display:inline-block;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600}
+.badge-casa{background:#065f46;color:#6ee7b7}
+.badge-col{background:#1e40af;color:#93c5fd}
+.badge-benzina{background:#7c2d12;color:#fdba74}
+.list-item{background:#0f172a;padding:16px;border-radius:12px;margin-bottom:10px;border:1px solid #334155;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.list-item-info{flex:1;min-width:0}
+.list-item-title{font-weight:600;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.list-item-sub{font-size:13px;color:#64748b}
+.list-item-value{font-weight:700;color:#14b8a6;font-size:18px;white-space:nowrap}
+.chart-container{background:#0f172a;padding:16px;border-radius:12px;margin-bottom:12px}
+.chart-title{font-size:13px;color:#94a3b8;margin-bottom:12px;font-weight:500}
+.bar-chart{display:flex;align-items:flex-end;justify-content:space-between;gap:8px;height:160px}
+.bar{flex:1;background:linear-gradient(180deg,#14b8a6,#06b6d4);border-radius:8px 8px 0 0;position:relative;min-width:20px;transition:.3s}
+.bar-label{position:absolute;bottom:-22px;left:50%;transform:translateX(-50%);font-size:11px;color:#64748b;white-space:nowrap}
+.bar-value{position:absolute;top:-20px;left:50%;transform:translateX(-50%);font-size:11px;color:#14b8a6;font-weight:600}
+.donut-chart{width:180px;height:180px;margin:0 auto;position:relative}
+.donut-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}
+.donut-total{font-size:24px;font-weight:700;color:#14b8a6}
+.donut-label{font-size:12px;color:#64748b}
+.legend{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:16px}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:13px}
+.legend-color{width:12px;height:12px;border-radius:3px}
+.close-btn{background:#334155;border:0;color:#cbd5e1;width:32px;height:32px;border-radius:8px;cursor:pointer;display:grid;place-items:center}
+.hidden{display:none!important}
+.fade-in{animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:#1e293b;border:1px solid #334155;padding:12px 20px;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,.4);z-index:200;animation:slideUp .3s ease}
+@keyframes slideUp{from{opacity:0;transform:translate(-50%,20px)}}
+.confirm-body{padding:20px;text-align:center}
+.confirm-icon{width:60px;height:60px;background:#dc2626;border-radius:50%;display:grid;place-items:center;margin:0 auto 16px;font-size:28px}
 </style>
 </head>
 <body>
-<script>
-window.onerror=(msg,src,line)=>document.body.innerHTML=`<div style="color:red;padding:20px;font-family:monospace;white-space:pre-wrap">ERRORE: ${msg}\nRiga:${line}</div>`;
+<div class="header">
+  <div class="logo">
+    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+    HybridDrive
+  </div>
+  <div class="header-actions">
+    <button class="icon-btn" id="btnExport" title="Esporta dati">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+    </button>
+  </div>
+</div>
 
-document.addEventListener('DOMContentLoaded',()=>{ main(); });
+<div class="tabs">
+  <button class="tab active" data-tab="auto">Auto</button>
+  <button class="tab" data-tab="bollette">Bollette</button>
+  <button class="tab" data-tab="elettrico">Elettrico</button>
+  <button class="tab" data-tab="nuovo">Nuovo</button>
+  <button class="tab" data-tab="storico">Storico</button>
+  <button class="tab" data-tab="statistiche">Statistiche</button>
+</div>
 
-function main(){
-  const S={load(){try{return JSON.parse(localStorage.getItem('hd33')||'{"cars":[],"bills":[],"refuels":[]}')}catch(e){return{cars:[],bills:[],refuels:[]}}},save(d){localStorage.setItem('hd33',JSON.stringify(d))}};
-  
-  let currentTab='Nuovo';
-  
-  const tabs=['Nuovo','Storico','Auto','Bollette'];
-  
-  function render(tab){
-    if(tab) currentTab=tab;
-    const d=S.load();
-    
-    const headerEl=document.getElementById('header');
-    if(headerEl) headerEl.innerHTML=`<h1>HybridDrive Tracker</h1><p>v3.3 FINAL STABLE</p>`;
-    
-    const tabsEl=document.getElementById('tabs');
-    if(tabsEl){
-      tabsEl.innerHTML=tabs.map(t=>`<button class="tab ${t===currentTab?'active':''}" onclick="switchTab('${t}')">${t}</button>`).join('');
-    }
-    
-    const contentEl=document.getElementById('content');
-    if(!contentEl) return;
-    
-    if(currentTab==='Nuovo'){
-      contentEl.innerHTML=renderNuovo(d);
-    }else if(currentTab==='Storico'){
-      contentEl.innerHTML=renderStorico(d);
-    }else if(currentTab==='Auto'){
-      contentEl.innerHTML=renderAuto(d);
-    }else if(currentTab==='Bollette'){
-      contentEl.innerHTML=renderBollette(d);
-    }
-    
-    const fabEl=document.getElementById('fab');
-    if(fabEl){
-      fabEl.style.display=currentTab==='Nuovo'?'none':'block';
-      fabEl.onclick=()=>switchTab('Nuovo');
-    }
-  }
-  
-  function renderNuovo(d){
-    const hasCars=d.cars&&d.cars.length>0;
-    return `
+<div class="container">
+  <div id="tab-auto" class="tab-content fade-in">
     <div class="card">
-      <h2>Nuovo Rifornimento</h2>
-      ${!hasCars?`<div class="empty"><div class="empty-icon">🚗</div><p>Nessuna auto registrata</p><button class="btn" onclick="addCar()">Aggiungi Auto</button></div>`:
-      `<label class="label">Auto</label>
-      <select id="carSelect" class="input">${d.cars.map(c=>`<option value="${c.id}">${c.name}</option>`).join('')}</select>
-      <label class="label">Chilometri</label>
-      <input id="kmInput" type="number" class="input" placeholder="es. 45230" step="0.1">
-      <label class="label">Euro spesi</label>
-      <input id="euroInput" type="number" class="input" placeholder="es. 45.50" step="0.01">
-      <label class="label">Litri (opzionale)</label>
-      <input id="litriInput" type="number" class="input" placeholder="es. 28.5" step="0.01">
-      <button class="btn" onclick="saveRefuel()">Salva Rifornimento</button>`}
+      <div class="card-title">Costo totale</div>
+      <div class="card-value" id="autoCostoTotale">€0</div>
+      <div class="card-sub" id="autoCostoSub">Benzina + Elettrico</div>
     </div>
-    ${hasCars?renderStats(d):''}`;
-  }
-  
-  function renderStats(d){
-    const totalRefuels=d.refuels.length;
-    const totalEuro=d.refuels.reduce((s,r)=>s+(r.euro||0),0);
-    const totalKm=d.refuels.length>1?Math.max(...d.refuels.map(r=>r.km))-Math.min(...d.refuels.map(r=>r.km)):0;
-    const avgCost=totalKm>0?(totalEuro/totalKm*100).toFixed(2):0;
-    return `
-    <div class="card">
-      <h2>Statistiche</h2>
-      <div class="grid grid-2">
-        <div class="stat"><span class="stat-label">Rifornimenti</span><span class="stat-value">${totalRefuels}</span></div>
-        <div class="stat"><span class="stat-label">Spesa Totale</span><span class="stat-value">€${totalEuro.toFixed(2)}</span></div>
-        <div class="stat"><span class="stat-label">Km Percorsi</span><span class="stat-value">${totalKm.toFixed(0)}</span></div>
-        <div class="stat"><span class="stat-label">€/100km</span><span class="stat-value">${avgCost}</span></div>
+    <div class="grid2">
+      <div class="card">
+        <div class="card-title">Km percorsi</div>
+        <div class="card-value" id="autoKmTotali">0</div>
+        <div class="card-sub">km</div>
       </div>
-    </div>`;
-  }
-  
-  function renderStorico(d){
-    const refuels=[...(d.refuels||[])].sort((a,b)=>b.date-a.date);
-    if(refuels.length===0){
-      return `<div class="card"><div class="empty"><div class="empty-icon">⛽</div><p>Nessun rifornimento registrato</p><button class="btn" onclick="switchTab('Nuovo')">Aggiungi il primo</button></div></div>`;
-    }
-    return `
+      <div class="card">
+        <div class="card-title">Costo/km</div>
+        <div class="card-value" id="autoCostoKm">€0</div>
+        <div class="card-sub">medio</div>
+      </div>
+    </div>
     <div class="card">
-      <h2>Storico Rifornimenti</h2>
-      ${refuels.map(r=>{
-        const car=d.cars.find(c=>c.id===r.carId);
-        const date=new Date(r.date).toLocaleDateString('it-IT',{day:'2-digit',month:'short',year:'numeric'});
-        return `<div class="list-item">
-          <div class="list-item-left">
-            <div class="list-item-title">${car?.name||'Auto eliminata'}</div>
-            <div class="list-item-sub">${r.km} km · ${date} ${r.litri?`· ${r.litri}L`:''}</div>
-          </div>
-          <div class="list-item-right">
-            <div class="list-item-value">€${r.euro.toFixed(2)}</div>
-          </div>
-        </div>`;
-      }).join('')}
-    </div>`;
-  }
-  
-  function renderAuto(d){
-    if(!d.cars||d.cars.length===0){
-      return `<div class="card"><div class="empty"><div class="empty-icon">🚗</div><p>Nessuna auto</p><button class="btn" onclick="addCar()">Aggiungi Auto</button></div></div>`;
-    }
-    return `
+      <div class="card-title">Rifornimenti</div>
+      <div class="card-value" id="autoRifornimenti">0</div>
+      <div class="card-sub" id="autoLitriSub">0 L totali</div>
+    </div>
+  </div>
+
+  <div id="tab-bollette" class="tab-content hidden fade-in">
     <div class="card">
-      <h2>Le Tue Auto</h2>
-      ${d.cars.map(c=>{
-        const refs=d.refuels.filter(r=>r.carId===c.id);
-        return `<div class="list-item">
-          <div class="list-item-left">
-            <div class="list-item-title">${c.name}</div>
-            <div class="list-item-sub">${refs.length} rifornimenti</div>
-          </div>
-          <div class="list-item-right">
-            <button class="btn btn-danger" style="width:auto;padding:8px 12px;margin:0" onclick="deleteCar(${c.id})">Elimina</button>
-          </div>
-        </div>`;
-      }).join('')}
-      <button class="btn" onclick="addCar()">+ Aggiungi Auto</button>
-    </div>`;
-  }
-  
-  function renderBollette(d){
-    const bills=d.bills||[];
-    if(bills.length===0){
-      return `<div class="card"><div class="empty"><div class="empty-icon">📄</div><p>Nessuna bolletta</p><button class="btn" onclick="addBill()">Aggiungi Bolletta</button></div></div>`;
-    }
-    return `
+      <div class="card-title">Spesa elettrica totale</div>
+      <div class="card-value" id="bolletteTotale">€0</div>
+      <div class="card-sub" id="bolletteKwhSub">0 kWh</div>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <div class="card-title">Prezzo/kWh</div>
+        <div class="card-value" id="bollettePrezzoMedio">€0</div>
+        <div class="card-sub">medio</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Ricariche casa</div>
+        <div class="card-value" id="bolletteRicaricheCasa">0</div>
+        <div class="card-sub" id="bolletteKwhCasaSub">0 kWh</div>
+      </div>
+    <div id="bolletteList"></div>
+  </div>
+
+  <div id="tab-elettrico" class="tab-content hidden fade-in">
     <div class="card">
-      <h2>Bollette Elettricità</h2>
-      ${bills.map(b=>{
-        const date=new Date(b.date).toLocaleDateString('it-IT',{month:'short',year:'numeric'});
-        return `<div class="list-item">
-          <div class="list-item-left">
-            <div class="list-item-title">${date}</div>
-            <div class="list-item-sub">${b.kwh} kWh</div>
-          </div>
-          <div class="list-item-right">
-            <div class="list-item-value">€${b.euro.toFixed(2)}</div>
-            <div class="list-item-sub">€${(b.euro/b.kwh).toFixed(3)}/kWh</div>
-          </div>
-        </div>`;
-      }).join('')}
-      <button class="btn" onclick="addBill()">+ Aggiungi Bolletta</button>
-    </div>`;
+      <div class="card-title">Consumo medio</div>
+      <div class="card-value" id="elettricoKwh100">0</div>
+      <div class="card-sub">kWh/100km</div>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <div class="card-title">kWh totali</div>
+        <div class="card-value" id="elettricoKwhTot">0</div>
+        <div class="card-sub">ricaricati</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Costo elettrico</div>
+        <div class="card-value" id="elettricoCosto">€0</div>
+        <div class="card-sub">totale</div>
+      </div>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <div class="card-title">Casa</div>
+        <div class="card-value" id="elettricoKwhCasa">0</div>
+        <div class="card-sub">kWh</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Colonnina</div>
+        <div class="card-value" id="elettricoKwhCol">0</div>
+        <div class="card-sub">kWh</div>
+      </div>
+    </div>
+    <button class="btn" id="btnAddRicarica">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+      Nuova ricarica
+    </button>
+  </div>
+
+  <div id="tab-nuovo" class="tab-content hidden fade-in">
+    <div class="card">
+      <div class="card-title">Tipo rifornimento</div>
+      <div class="toggle" id="toggleTipo">
+        <button class="active" data-tipo="benzina">Benzina</button>
+        <button data-tipo="km">Solo km</button>
+      </div>
+      <div id="formBenzina">
+        <label>Data</label>
+        <input type="date" class="input" id="inputDataBenzina">
+        <label>Litri</label>
+        <input type="number" class="input" id="inputLitri" placeholder="0.00" step="0.01">
+        <label>Prezzo totale (€)</label>
+        <input type="number" class="input" id="inputPrezzoBenzina" placeholder="0.00" step="0.01">
+        <label>Km attuali</label>
+        <input type="number" class="input" id="inputKmBenzina" placeholder="0" step="1">
+      </div>
+      <div id="formKm" class="hidden">
+        <label>Data</label>
+        <input type="date" class="input" id="inputDataKm">
+        <label>Km attuali</label>
+        <input type="number" class="input" id="inputKm" placeholder="0" step="1">
+      </div>
+      <button class="btn" id="btnSalvaRifornimento">Salva</button>
+    </div>
+  </div>
+
+  <div id="tab-storico" class="tab-content hidden fade-in">
+    <div style="margin-bottom:16px">
+      <button class="btn btn-danger btn-sm" id="btnReset">Reset dati</button>
+    </div>
+    <div id="storicoList"></div>
+  </div>
+
+  <div id="tab-statistiche" class="tab-content hidden fade-in">
+    <div class="card">
+      <div class="card-title">Riepilogo costi</div>
+      <div class="donut-chart" id="donutChart"></div>
+    </div>
+    <div class="chart-container">
+      <div class="chart-title">Andamento mensile costi</div>
+      <div class="bar-chart" id="barChart"></div>
+    </div>
+    <div class="grid3">
+      <div class="card">
+        <div class="card-title">Benzina</div>
+        <div class="card-value" id="statBenzina" style="font-size:20px">€0</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Casa</div>
+        <div class="card-value" id="statCasa" style="font-size:20px">€0</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Colonnina</div>
+        <div class="card-value" id="statCol" style="font-size:20px">€0</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button class="fab" id="fabAdd">+</button>
+
+<dialog id="dialogRicarica">
+  <div class="dialog-head">
+    Nuova ricarica
+    <button class="close-btn" id="closeRicarica">✕</button>
+  </div>
+  <div class="dialog-body">
+    <div class="toggle" id="toggleLuogo">
+      <button class="active" data-luogo="casa">Casa</button>
+      <button data-luogo="colonnina">Colonnina</button>
+    </div>
+    <label>Data</label>
+    <input type="date" class="input" id="inputDataRic">
+    <label>kWh ricaricati</label>
+    <input type="number" class="input" id="inputKwh" placeholder="0.00" step="0.01">
+    <label id="labelCostoRic">Costo totale (€)</label>
+    <input type="number" class="input" id="inputCostoRic" placeholder="0.00" step="0.01">
+    <label>Km attuali</label>
+    <input type="number" class="input" id="inputKmRic" placeholder="0" step="1">
+    <button class="btn" id="btnSalvaRicarica">Salva ricarica</button>
+  </div>
+</dialog>
+
+<dialog id="dialogConfirm">
+  <div class="confirm-body">
+    <div class="confirm-icon">⚠</div>
+    <h3 style="margin-bottom:8px">Sei sicuro?</h3>
+    <p style="color:#94a3b8;margin-bottom:20px">Tutti i dati verranno eliminati definitivamente.</p>
+    <div class="grid2">
+      <button class="btn btn-ghost" id="btnCancelReset">Annulla</button>
+      <button class="btn btn-danger" id="btnConfirmReset">Elimina</button>
+    </div>
+  </div>
+</dialog>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const STORE_KEY = 'hd34';
+  let state = {
+    rifornimenti: [],
+    ricariche: [],
+    prezzoKwhCasa: 0.25
+  };
+
+  const $ = (sel) => document.querySelector(sel);
+  const $$ = (sel) => document.querySelectorAll(sel);
+
+  function loadState() {
+    try {
+      const saved = localStorage.getItem(STORE_KEY);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed && typeof parsed === 'object') {
+          state = {...state, ...parsed};
+        }
+      }
+    } catch(e) {
+      console.error('Load error:', e);
+    }
   }
-  
-  window.switchTab=(t)=>render(t);
-  
-  window.addCar=()=>{
-    const n=prompt('Nome auto (es. Toyota Yaris Hybrid)');
-    if(n&&n.trim()){
-      const d=S.load();
-      if(!d.cars) d.cars=[];
-      d.cars.push({id:Date.now(),name:n.trim()});
-      S.save(d);
-      render();
+
+  function saveState() {
+    try {
+      localStorage.setItem(STORE_KEY, JSON.stringify(state));
+    } catch(e) {
+      console.error('Save error:', e);
+      showToast('Errore salvataggio');
     }
-  };
+  }
+
+  function showToast(msg) {
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.textContent = msg;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 2500);
+  }
+
+  function formatDate(d) {
+    if (!d) return '';
+    const dt = new Date(d);
+    return dt.toLocaleDateString('it-IT', {day:'2-digit',month:'2-digit',year:'numeric'});
+  }
+
+  function formatEuro(n) {
+    return '€' + (n || 0).toFixed(2);
+  }
+
+  function getToday() {
+    return new Date().toISOString().split('T')[0];
+  }
+
+  // Tabs
+  $$('.tab').forEach(tab => {
+    tab.addEventListener('click', function() {
+      const target = this.dataset.tab;
+      $$('.tab').forEach(t => t.classList.remove('active'));
+      $$('.tab-content').forEach(c => c.classList.add('hidden'));
+      this.classList.add('active');
+      $('#tab-' + target)?.classList.remove('hidden');
+      if (target === 'statistiche') renderCharts();
+    });
+  });
+
+  // Toggle tipo rifornimento
+  $('#toggleTipo')?.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', function() {
+      $('#toggleTipo')?.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      const tipo = this.dataset.tipo;
+      $('#formBenzina')?.classList.toggle('hidden', tipo !== 'benzina');
+      $('#formKm')?.classList.toggle('hidden', tipo !== 'km');
+    });
+  });
+
+  // Toggle luogo ricarica
+  $('#toggleLuogo')?.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', function() {
+      $('#toggleLuogo')?.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      const luogo = this.dataset.luogo;
+      const costoInput = $('#inputCostoRic');
+      const labelCosto = $('#labelCostoRic');
+      if (luogo === 'casa') {
+        costoInput.value = '';
+        costoInput.disabled = true;
+        labelCosto.textContent = 'Costo calcolato (€'+state.prezzoKwhCasa+'/kWh)';
+      } else {
+        costoInput.disabled = false;
+        labelCosto.textContent = 'Costo totale (€)';
+      }
+    });
+  });
+
+  // Dialog
+  $('#btnAddRicarica')?.addEventListener('click', () => {
+    $('#dialogRicarica')?.showModal();
+    $('#inputDataRic').value = getToday();
+    updateKmFromLast();
+  });
   
-  window.deleteCar=(id)=>{
-    if(confirm('Eliminare questa auto e tutti i suoi rifornimenti?')){
-      const d=S.load();
-      d.cars=d.cars.filter(c=>c.id!==id);
-      d.refuels=d.refuels.filter(r=>r.carId!==id);
-      S.save(d);
-      render();
+  $('#fabAdd')?.addEventListener('click', () => {
+    const activeTab = $('.tab.active')?.dataset.tab;
+    if (activeTab === 'elettrico') {
+      $('#dialogRicarica')?.showModal();
+      $('#inputDataRic').value = getToday();
+      updateKmFromLast();
+    } else {
+      $$('.tab').forEach(t => t.classList.remove('active'));
+      $$('.tab-content').forEach(c => c.classList.add('hidden'));
+      $('[data-tab="nuovo"]')?.classList.add('active');
+      $('#tab-nuovo')?.classList.remove('hidden');
+      $('#inputDataBenzina').value = getToday();
+      $('#inputDataKm').value = getToday();
+      updateKmFromLast();
     }
-  };
-  
-  window.saveRefuel=()=>{
-    const carSel=document.getElementById('carSelect');
-    const kmIn=document.getElementById('kmInput');
-    const euroIn=document.getElementById('euroInput');
-    const litriIn=document.getElementById('litriInput');
+  });
+
+  $('#closeRicarica')?.addEventListener('click', () => $('#dialogRicarica')?.close());
+  $('#btnExport')?.addEventListener('click', exportData);
+  $('#btnReset')?.addEventListener('click', () => $('#dialogConfirm')?.showModal());
+  $('#btnCancelReset')?.addEventListener('click', () => $('#dialogConfirm')?.close());
+  $('#btnConfirmReset')?.addEventListener('click', resetData);
+
+  // Salva rifornimento
+  $('#btnSalvaRifornimento')?.addEventListener('click', function() {
+    const tipo = $('#toggleTipo .active')?.dataset.tipo;
+    const data = tipo === 'benzina' ? $('#inputDataBenzina')?.value : $('#inputDataKm')?.value;
+    const km = parseInt((tipo === 'benzina' ? $('#inputKmBenzina')?.value : $('#inputKm')?.value) || 0);
     
-    if(!carSel||!kmIn||!euroIn) return alert('Errore elementi');
-    
-    const carId=+carSel.value;
-    const km=+kmIn.value;
-    const euro=+euroIn.value;
-    const litri=litriIn.value?+litriIn.value:null;
-    
-    if(!km||!euro||km<0||euro<0){
-      return alert('Inserisci km ed euro validi');
+    if (!data || !km) {
+      showToast('Compila tutti i campi');
+      return;
     }
+
+    const record = {id: Date.now(), data, km, tipo};
     
-    const d=S.load();
-    if(!d.refuels) d.refuels=[];
-    d.refuels.push({carId,km,euro,litri,date:Date.now()});
-    S.save(d);
-    alert('Rifornimento salvato!');
-    kmIn.value='';
-    euroIn.value='';
-    if(litriIn) litriIn.value='';
-    render('Storico');
-  };
-  
-  window.addBill=()=>{
-    const kwh=prompt('kWh consumati (es. 250)');
-    if(!kwh||isNaN(+kwh)) return;
-    const euro=prompt('Totale bolletta in € (es. 65.50)');
-    if(!euro||isNaN(+euro)) return;
-    const d=S.load();
-    if(!d.bills) d.bills=[];
-    d.bills.push({kwh:+kwh,euro:+euro,date:Date.now()});
-    S.save(d);
+    if (tipo === 'benzina') {
+      const litri = parseFloat($('#inputLitri')?.value || 0);
+      const prezzo = parseFloat($('#inputPrezzoBenzina')?.value || 0);
+      if (!litri || !prezzo) {
+        showToast('Inserisci litri e prezzo');
+        return;
+      }
+      record.litri = litri;
+      record.prezzo = prezzo;
+    }
+
+    state.rifornimenti.push(record);
+    state.rifornimenti.sort((a,b) => new Date(a.data) - new Date(b.data));
+    saveState();
     render();
-  };
-  
-  // Initial UI skeleton
-  document.body.innerHTML=`
-    <header id="header"></header>
-    <div id="tabs" class="tabs"></div>
-    <div id="content"></div>
-    <button id="fab">+</button>
-  `;
-  
+    showToast('Rifornimento salvato');
+    
+    // Reset form
+    $('#inputLitri')?.value && ($('#inputLitri').value = '');
+    $('#inputPrezzoBenzina')?.value && ($('#inputPrezzoBenzina').value = '');
+    $('#inputKmBenzina')?.value && ($('#inputKmBenzina').value = '');
+    $('#inputKm')?.value && ($('#inputKm').value = '');
+  });
+
+  // Salva ricarica
+  $('#btnSalvaRicarica')?.addEventListener('click', function() {
+    const data = $('#inputDataRic')?.value;
+    const kwh = parseFloat($('#inputKwh')?.value || 0);
+    const km = parseInt($('#inputKmRic')?.value || 0);
+    const luogo = $('#toggleLuogo .active')?.dataset.luogo;
+    
+    if (!data || !kwh || !km) {
+      showToast('Compila tutti i campi');
+      return;
+    }
+
+    let costo = 0;
+    if (luogo === 'casa') {
+      costo = kwh * state.prezzoKwhCasa;
+    } else {
+      costo = parseFloat($('#inputCostoRic')?.value || 0);
+      if (!costo) {
+        showToast('Inserisci il costo');
+        return;
+      }
+    }
+
+    state.ricariche.push({id: Date.now(), data, kwh, costo, km, luogo});
+    state.ricariche.sort((a,b) => new Date(a.data) - new Date(b.data));
+    saveState();
+    render();
+    $('#dialogRicarica')?.close();
+    showToast('Ricarica salvata');
+    
+    // Reset
+    $('#inputKwh')?.value && ($('#inputKwh').value = '');
+    $('#inputCostoRic')?.value && ($('#inputCostoRic').value = '');
+    $('#inputKmRic')?.value && ($('#inputKmRic').value = '');
+  });
+
+  function updateKmFromLast() {
+    const lastKm = Math.max(
+      ...state.rifornimenti.map(r => r.km || 0),
+      ...state.ricariche.map(r => r.km || 0),
+      0
+    );
+    if (lastKm > 0) {
+      $('#inputKmBenzina') && ($('#inputKmBenzina').placeholder = lastKm);
+      $('#inputKm') && ($('#inputKm').placeholder = lastKm);
+      $('#inputKmRic') && ($('#inputKmRic').placeholder = lastKm);
+    }
+  }
+
+  function render() {
+    renderAuto();
+    renderBollette();
+    renderElettrico();
+    renderStorico();
+    renderStatistiche();
+    updateKmFromLast();
+  }
+
+  function renderAuto() {
+    const benzinaTot = state.rifornimenti.filter(r => r.tipo === 'benzina').reduce((s,r) => s + (r.prezzo || 0), 0);
+    const elettricoTot = state.ricariche.reduce((s,r) => s + (r.costo || 0), 0);
+    const costoTot = benzinaTot + elettricoTot;
+    
+    const kmMax = Math.max(...state.rifornimenti.map(r => r.km || 0), ...state.ricariche.map(r => r.km || 0), 0);
+    const kmMin = Math.min(...state.rifornimenti.map(r => r.km || 0).filter(k => k > 0), ...state.ricariche.map(r => r.km || 0).filter(k => k > 0), Infinity);
+    const kmPercorsi = kmMax > kmMin && kmMin !== Infinity ? kmMax - kmMin : 0;
+    
+    const costoKm = kmPercorsi > 0 ? costoTot / kmPercorsi : 0;
+    const litriTotali = state.rifornimenti.filter(r => r.tipo === 'benzina').reduce((s,r) => s + (r.litri || 0), 0);
+    const nRifornimenti = state.rifornimenti.filter(r => r.tipo === 'benzina').length;
+
+    $('#autoCostoTotale') && ($('#autoCostoTotale').textContent = formatEuro(costoTot));
+    $('#autoCostoSub') && ($('#autoCostoSub').textContent = `Benzina ${formatEuro(benzinaTot)} + Elettrico ${formatEuro(elettricoTot)}`);
+    $('#autoKmTotali') && ($('#autoKmTotali').textContent = kmPercorsi.toLocaleString('it-IT'));
+    $('#autoCostoKm') && ($('#autoCostoKm').textContent = formatEuro(costoKm));
+    $('#autoRifornimenti') && ($('#autoRifornimenti').textContent = nRifornimenti);
+    $('#autoLitriSub') && ($('#autoLitriSub').textContent = `${litriTotali.toFixed(1)} L totali`);
+  }
+
+  function renderBollette() {
+    const ricaricheCasa = state.ricariche.filter(r => r.luogo === 'casa');
+    const kwhCasa = ricaricheCasa.reduce((s,r) => s + (r.kwh || 0), 0);
+    const costoCasa = ricaricheCasa.reduce((s,r) => s + (r.costo || 0), 0);
+    const prezzoMedio = kwhCasa > 0 ? costoCasa / kwhCasa : state.prezzoKwhCasa;
+
+    $('#bolletteTotale') && ($('#bolletteTotale').textContent = formatEuro(costoCasa));
+    $('#bolletteKwhSub') && ($('#bolletteKwhSub').textContent = `${kwhCasa.toFixed(1)} kWh`);
+    $('#bollettePrezzoMedio') && ($('#bollettePrezzoMedio').textContent = formatEuro(prezzoMedio));
+    $('#bolletteRicaricheCasa') && ($('#bolletteRicaricheCasa').textContent = ricaricheCasa.length);
+    $('#bolletteKwhCasaSub') && ($('#bolletteKwhCasaSub').textContent = `${kwhCasa.toFixed(1)} kWh`);
+
+    const list = $('#bolletteList');
+    if (!list) return;
+    
+    if (ricaricheCasa.length === 0) {
+      list.innerHTML = '<div class="empty"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg><div>Nessuna bolletta</div></div>';
+      return;
+    }
+
+    list.innerHTML = ricaricheCasa.slice().reverse().map(r => `
+      <div class="list-item">
+        <div class="list-item-info">
+          <div class="list-item-title">${formatDate(r.data)}</div>
+          <div class="list-item-sub">${r.kwh.toFixed(2)} kWh • ${r.km.toLocaleString('it-IT')} km</div>
+        </div>
+        <div class="list-item-value">${formatEuro(r.costo)}</div>
+      </div>
+    `).join('');
+  }
+
+  function renderElettrico() {
+    const all = state.ricariche;
+    const kwhTot = all.reduce((s,r) => s + (r.kwh || 0), 0);
+    const costoTot = all.reduce((s,r) => s + (r.costo || 0), 0);
+    const kwhCasa = all.filter(r => r.luogo === 'casa').reduce((s,r) => s + (r.kwh || 0), 0);
+    const kwhCol = all.filter(r => r.luogo === 'colonnina').reduce((s,r) => s + (r.kwh || 0), 0);
+    
+    // kWh/100km
+    const kmMax = Math.max(...all.map(r => r.km || 0), 0);
+    const kmMin = Math.min(...all.map(r => r.km || 0).filter(k => k > 0), Infinity);
+    const kmPercorsi = kmMax > kmMin && kmMin !== Infinity ? kmMax - kmMin : 0;
+    const kwh100 = kmPercorsi > 0 ? (kwhTot / kmPercorsi) * 100 : 0;
+
+    $('#elettricoKwh100') && ($('#elettricoKwh100').textContent = kwh100.toFixed(1));
+    $('#elettricoKwhTot') && ($('#elettricoKwhTot').textContent = kwhTot.toFixed(1));
+    $('#elettricoCosto') && ($('#elettricoCosto').textContent = formatEuro(costoTot));
+    $('#elettricoKwhCasa') && ($('#elettricoKwhCasa').textContent = kwhCasa.toFixed(1));
+    $('#elettricoKwhCol') && ($('#elettricoKwhCol').textContent = kwhCol.toFixed(1));
+  }
+
+  function renderStorico() {
+    const list = $('#storicoList');
+    if (!list) return;
+    
+    const all = [
+      ...state.rifornimenti.map(r => ({...r, tipoRecord: 'rif'})),
+      ...state.ricariche.map(r => ({...r, tipoRecord: 'ric'}))
+    ].sort((a,b) => new Date(b.data) - new Date(a.data));
+
+    if (all.length === 0) {
+      list.innerHTML = '<div class="empty"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><div>Nessun dato</div></div>';
+      return;
+    }
+
+    list.innerHTML = all.map(item => {
+      if (item.tipoRecord === 'rif') {
+        const badge = item.tipo === 'benzina' ? '<span class="badge badge-benzina">Benzina</span>' : '<span class="badge">Solo km</span>';
+        const value = item.tipo === 'benzina' ? formatEuro(item.prezzo) : '-';
+        const sub = item.tipo === 'benzina' ? `${item.litri?.toFixed(1)} L` : '';
+        return `
+          <div class="list-item">
+            <div class="list-item-info">
+              <div class="list-item-title">${formatDate(item.data)} ${badge}</div>
+              <div class="list-item-sub">${item.km.toLocaleString('it-IT')} km ${sub}</div>
+            </div>
+            <div class="list-item-value">${value}</div>
+          </div>
+        `;
+      } else {
+        const badge = item.luogo === 'casa' ? '<span class="badge badge-casa">Casa</span>' : '<span class="badge badge-col">Colonnina</span>';
+        return `
+          <div class="list-item">
+            <div class="list-item-info">
+              <div class="list-item-title">${formatDate(item.data)} ${badge}</div>
+              <div class="list-item-sub">${item.kwh.toFixed(2)} kWh • ${item.km.toLocaleString('it-IT')} km</div>
+            </div>
+            <div class="list-item-value">${formatEuro(item.costo)}</div>
+          </div>
+        `;
+      }
+    }).join('');
+  }
+
+  function renderStatistiche() {
+    const benzinaTot = state.rifornimenti.filter(r => r.tipo === 'benzina').reduce((s,r) => s + (r.prezzo || 0), 0);
+    const casaTot = state.ricariche.filter(r => r.luogo === 'casa').reduce((s,r) => s + (r.costo || 0), 0);
+    const colTot = state.ricariche.filter(r => r.luogo === 'colonnina').reduce((s,r) => s + (r.costo || 0), 0);
+
+    $('#statBenzina') && ($('#statBenzina').textContent = formatEuro(benzinaTot));
+    $('#statCasa') && ($('#statCasa').textContent = formatEuro(casaTot));
+    $('#statCol') && ($('#statCol').textContent = formatEuro(colTot));
+  }
+
+  function renderCharts() {
+    renderDonutChart();
+    renderBarChart();
+  }
+
+  function renderDonutChart() {
+    const container = $('#donutChart');
+    if (!container) return;
+    
+    const benzinaTot = state.rifornimenti.filter(r => r.tipo === 'benzina').reduce((s,r) => s + (r.prezzo || 0), 0);
+    const casaTot = state.ricariche.filter(r => r.luogo === 'casa').reduce((s,r) => s + (r.costo || 0), 0);
+    const colTot = state.ricariche.filter(r => r.luogo === 'colonnina').reduce((s,r) => s + (r.costo || 0), 0);
+    const tot = benzinaTot + casaTot + colTot;
+
+    if (tot === 0) {
+      container.innerHTML = '<div class="empty"><div>Nessun dato</div></div>';
+      return;
+    }
+
+    const data = [
+      {label: 'Benzina', value: benzinaTot, color: '#f97316'},
+      {label: 'Casa', value: casaTot, color: '#14b8a6'},
+      {label: 'Colonnina', value: colTot, color: '#3b82f6'}
+    ].filter(d => d.value > 0);
+
+    let offset = 0;
+    const radius = 70;
+    const circumference = 2 * Math.PI * radius;
+    
+    const circles = data.map(d => {
+      const pct = d.value / tot;
+      const dash = pct * circumference;
+      const circle = `<circle r="${radius}" cx="90" cy="90" fill="none" stroke="${d.color}" stroke-width="20" stroke-dasharray="${dash} ${circumference}" stroke-dashoffset="${-offset}" transform="rotate(-90 90 90)"/>`;
+      offset += dash;
+      return circle;
+    }).join('');
+
+    container.innerHTML = `
+      <svg width="180" height="180" viewBox="0 0 180 180">
+        ${circles}
+      </svg>
+      <div class="donut-center">
+        <div class="donut-total">${formatEuro(tot)}</div>
+        <div class="donut-label">totale</div>
+      </div>
+      <div class="legend">
+        ${data.map(d => `<div class="legend-item"><div class="legend-color" style="background:${d.color}"></div>${d.label}</div>`).join('')}
+      </div>
+    `;
+  }
+
+  function renderBarChart() {
+    const container = $('#barChart');
+    if (!container) return;
+    
+    // Raggruppa per mese
+    const monthData = {};
+    const all = [
+      ...state.rifornimenti.filter(r => r.tipo === 'benzina').map(r => ({data: r.data, costo: r.prezzo})),
+      ...state.ricariche.map(r => ({data: r.data, costo: r.costo}))
+    ];
+
+    all.forEach(item => {
+      const d = new Date(item.data);
+      const key = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+      monthData[key] = (monthData[key] || 0) + (item.costo || 0);
+    });
+
+    const months = Object.keys(monthData).sort().slice(-6);
+    if (months.length === 0) {
+      container.innerHTML = '<div class="empty"><div>Nessun dato</div></div>';
+      return;
+    }
+
+    const max = Math.max(...Object.values(monthData));
+    const monthNames = ['Gen','Feb','Mar','Apr','Mag','Giu','Lug','Ago','Set','Ott','Nov','Dic'];
+
+    container.innerHTML = months.map(m => {
+      const val = monthData[m];
+      const height = max > 0 ? (val / max) * 140 : 0;
+      const [y, mm] = m.split('-');
+      const label = monthNames[parseInt(mm)-1];
+      return `
+        <div class="bar" style="height:${height}px">
+          <div class="bar-value">${val.toFixed(0)}</div>
+          <div class="bar-label">${label}</div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  function exportData() {
+    const data = JSON.stringify(state, null, 2);
+    const blob = new Blob([data], {type: 'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `hybriddrive-${new Date().toISOString().split('T')[0]}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast('Dati esportati');
+  }
+
+  function resetData() {
+    state = {rifornimenti: [], ricariche: [], prezzoKwhCasa: 0.25};
+    saveState();
+    render();
+    $('#dialogConfirm')?.close();
+    showToast('Dati eliminati');
+  }
+
+  // PWA install
+  if ('serviceWorker' in navigator) {
+    const swCode = `
+      self.addEventListener('install', e => self.skipWaiting());
+      self.addEventListener('activate', e => e.waitUntil(clients.claim()));
+      self.addEventListener('fetch', e => e.respondWith(fetch(e.request).catch(() => caches.match(e.request))));
+    `;
+    const blob = new Blob([swCode], {type: 'application/javascript'});
+    const swUrl = URL.createObjectURL(blob);
+    navigator.serviceWorker.register(swUrl).catch(()=>{});
+  }
+
+  // Init
+  loadState();
+  $('#inputDataBenzina')?.value && ($('#inputDataBenzina').value = getToday());
+  $('#inputDataKm')?.value && ($('#inputDataKm').value = getToday());
+  $('#inputDataRic')?.value && ($('#inputDataRic').value = getToday());
   render();
-}
+});
 </script>
 </body>
 </html>
