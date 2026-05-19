@@ -1,5 +1,5 @@
 LICENZA PERSONALIZZATA - HYBRIDDRIVE TRACKER
-Copyright (c) 2026 [INSERISCI IL TUO NOME E COGNOME]
+Copyright (c) 2026 MAURIZIO MARCHETTI
 
 === 1. USO CONSENTITO ===
 Questo software può essere utilizzato, copiato, modificato e distribuito gratuitamente 
@@ -26,7 +26,7 @@ Cosa significa "commerciale":
 Se distribuisci versioni modificate devi:
 1. Mantenere questo file LICENSE intatto
 2. Indicare chiaramente che è una modifica dell'originale
-3. Citare l'autore originale: [IL TUO NOME]
+3. Citare l'autore originale: MAURIZIO MARCHETTI
 
 === 4. NESSUNA GARANZIA ===
 IL SOFTWARE È FORNITO "COSÌ COM'È". L'autore non garantisce che funzioni perfettamente 
@@ -34,6 +34,6 @@ e non è responsabile per danni, perdite di dati o problemi derivanti dall'uso.
 
 === 5. LICENZA COMMERCIALE ===
 Per usare questo software in ambito commerciale serve una licenza separata.
-Contatta: [INSERISCI-LA-TUA-EMAIL]
+
 
 La violazione di questi termini revoca automaticamente tutti i diritti concessi.
