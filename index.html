@@ -2,1284 +2,976 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="theme-color" content="#14b8a6">
-<title>HybridDrive Tracker v3.6</title>
-<link rel="manifest" href="data:application/json,{&quot;name&quot;:&quot;HybridDrive Tracker&quot;,&quot;short_name&quot;:&quot;HybridDrive&quot;,&quot;start_url&quot;:&quot;.&quot;,&quot;display&quot;:&quot;standalone&quot;,&quot;background_color&quot;:&quot;#0f172a&quot;,&quot;theme_color&quot;:&quot;#14b8a6&quot;,&quot;icons&quot;:[{&quot;src&quot;:&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop='%2314b8a6'/%3E%3Cstop offset='1' stop='%2306b6d4'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' rx='110' fill='url(%23g)'/%3E%3Cpath d='M156 280h200v40c0 11-9 20-20 20h-160c-11 0-20-9-20-20v-40z' fill='%23fff'/%3E%3Cpath d='M256 160l-40 80h80l-40-80z' fill='%230f172a'/%3E%3Ccircle cx='196' cy='360' r='28' fill='%230f172a'/%3E%3Ccircle cx='316' cy='360' r='28' fill='%230f172a'/%3E%3C/svg%3E&quot;,&quot;sizes&quot;:&quot;512x512&quot;,&quot;type&quot;:&quot;image/svg+xml&quot;}]}">
-<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop='%2314b8a6'/%3E%3Cstop offset='1' stop='%2306b6d4'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' rx='110' fill='url(%23g)'/%3E%3Cpath d='M156 280h200v40c0 11-9 20-20 20h-160c-11 0-20-9-20-20v-40z' fill='%23fff'/%3E%3Cpath d='M256 160l-40 80h80l-40-80z' fill='%230f172a'/%3E%3Ccircle cx='196' cy='360' r='28' fill='%230f172a'/%3E%3Ccircle cx='316' cy='360' r='28' fill='%230f172a'/%3E%3C/svg%3E">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0d9488">
+<title>HybridDrive Tracker v3.7 PRO</title>
+<link rel="manifest" id="manifest">
 <style>
-:root {
-  --bg: #0f172a;
-  --bg2: #1e293b;
-  --card: rgba(30, 41, 59, 0.8);
-  --border: rgba(148, 163, 184, 0.1);
-  --teal: #14b8a6;
-  --cyan: #06b6d4;
-  --text: #f1f5f9;
-  --text2: #94a3b8;
-  --green: #10b981;
-  --amber: #f59e0b;
-  --red: #ef4444;
-  --gradient: linear-gradient(135deg, #14b8a6 0%, #06b6d4 100%);
-  --gradient-soft: linear-gradient(135deg, rgba(20,184,166,0.15) 0%, rgba(6,182,212,0.15) 100%);
-  --shadow: 0 10px 30px rgba(0,0,0,0.3);
-  --radius: 20px;
-  --radius-sm: 14px;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
-}
-
-html, body {
-  overscroll-behavior: none;
-  height: 100%;
-}
-
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  position: relative;
-  overflow-x: hidden;
-}
-
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(circle at 20% 20%, rgba(20,184,166,0.08) 0%, transparent 50%),
-              radial-gradient(circle at 80% 80%, rgba(6,182,212,0.08) 0%, transparent 50%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.app-container {
-  position: relative;
-  z-index: 1;
-  max-width: 480px;
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  padding-bottom: 90px;
-}
-
-header {
-  padding: 24px 20px 16px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  backdrop-filter: blur(20px);
-  background: rgba(15, 23, 42, 0.7);
-  border-bottom: 1px solid var(--border);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.logo-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
-  background: var(--gradient);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 12px rgba(20,184,166,0.3);
-  animation: pulse 3s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { box-shadow: 0 4px 12px rgba(20,184,166,0.3); }
-  50% { box-shadow: 0 4px 20px rgba(20,184,166,0.5); }
-}
-
-.logo h1 {
-  font-size: 20px;
-  font-weight: 700;
-  background: var(--gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.car-badge {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  font-size: 13px;
-  color: var(--text2);
-}
-
-.content {
-  flex: 1;
-  padding: 20px;
-  animation: fadeIn 0.4s ease-out;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.page {
-  display: none;
-}
-
-.page.active {
-  display: block;
-  animation: fadeIn 0.4s ease-out;
-}
-
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  margin-bottom: 20px;
-}
-
-.stat-card {
-  background: var(--card);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 16px;
-  text-align: center;
-  transition: all 0.3s ease;
-  box-shadow: var(--shadow);
-}
-
-.stat-card:active {
-  transform: scale(0.97);
-}
-
-.stat-value {
-  font-size: 24px;
-  font-weight: 700;
-  background: var(--gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 4px;
-}
-
-.stat-label {
-  font-size: 11px;
-  color: var(--text2);
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.card {
-  background: var(--card);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 20px;
-  margin-bottom: 16px;
-  box-shadow: var(--shadow);
-  transition: all 0.3s ease;
-}
-
-.card-title {
-  font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.chart-container {
-  height: 180px;
-  position: relative;
-  margin-top: 8px;
-}
-
-.bar-chart {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  height: 100%;
-  gap: 8px;
-  padding: 0 4px;
-}
-
-.bar {
-  flex: 1;
-  background: var(--gradient);
-  border-radius: 8px 8px 4px 4px;
-  position: relative;
-  min-height: 20px;
-  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  animation: barGrow 0.8s ease-out;
-  box-shadow: 0 2px 8px rgba(20,184,166,0.2);
-}
-
-@keyframes barGrow {
-  from { height: 0 !important; opacity: 0; }
-  to { opacity: 1; }
-}
-
-.bar-label {
-  position: absolute;
-  bottom: -24px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 10px;
-  color: var(--text2);
-  white-space: nowrap;
-}
-
-.btn {
-  width: 100%;
-  padding: 16px;
-  border: none;
-  border-radius: var(--radius-sm);
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  background: var(--gradient);
-  color: white;
-  box-shadow: 0 4px 12px rgba(20,184,166,0.3);
-}
-
-.btn:active {
-  transform: scale(0.98);
-  box-shadow: 0 2px 8px rgba(20,184,166,0.3);
-}
-
-.btn-secondary {
-  background: var(--card);
-  color: var(--text);
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow);
-}
-
-.btn-group {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-top: 16px;
-}
-
-.input-group {
-  margin-bottom: 16px;
-}
-
-.input-label {
-  font-size: 13px;
-  color: var(--text2);
-  margin-bottom: 8px;
-  display: block;
-  font-weight: 500;
-}
-
-.input {
-  width: 100%;
-  padding: 14px 16px;
-  background: rgba(15, 23, 42, 0.6);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  color: var(--text);
-  font-size: 15px;
-  transition: all 0.3s ease;
-}
-
-.input:focus {
-  outline: none;
-  border-color: var(--teal);
-  background: rgba(15, 23, 42, 0.8);
-  box-shadow: 0 0 0 3px rgba(20,184,166,0.1);
-}
-
-.select {
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 16px center;
-  padding-right: 40px;
-}
-
-.tabs {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 20px;
-  background: rgba(15, 23, 42, 0.6);
-  padding: 6px;
-  border-radius: var(--radius-sm);
-}
-
-.tab {
-  flex: 1;
-  padding: 10px;
-  background: transparent;
-  border: none;
-  border-radius: 10px;
-  color: var(--text2);
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.tab.active {
-  background: var(--gradient);
-  color: white;
-  box-shadow: 0 2px 8px rgba(20,184,166,0.3);
-}
-
-.record-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.record-item {
-  background: var(--card);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  animation: slideIn 0.3s ease-out;
-  box-shadow: var(--shadow);
-}
-
-@keyframes slideIn {
-  from { opacity: 0; transform: translateX(-10px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-
-.record-info {
-  flex: 1;
-}
-
-.record-date {
-  font-size: 12px;
-  color: var(--text2);
-  margin-bottom: 4px;
-}
-
-.record-data {
-  font-size: 14px;
-  font-weight: 600;
-  display: flex;
-  gap: 12px;
-}
-
-.record-price {
-  font-size: 18px;
-  font-weight: 700;
-  background: var(--gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.car-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.car-item {
-  background: var(--card);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 16px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  box-shadow: var(--shadow);
-}
-
-.car-icon {
-  width: 48px;
-  height: 48px;
-  background: var(--gradient-soft);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-}
-
-.car-details {
-  flex: 1;
-}
-
-.car-name {
-  font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 4px;
-}
-
-.car-info {
-  font-size: 13px;
-  color: var(--text2);
-}
-
-.bottom-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(15, 23, 42, 0.95);
-  backdrop-filter: blur(20px);
-  border-top: 1px solid var(--border);
-  padding: 12px 0 calc(12px + env(safe-area-inset-bottom));
-  z-index: 100;
-}
-
-.nav-container {
-  max-width: 480px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 4px;
-  padding: 0 12px;
-}
-
-.nav-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  padding: 8px;
-  border: none;
-  background: transparent;
-  color: var(--text2);
-  cursor: pointer;
-  border-radius: 12px;
-  transition: all 0.3s ease;
-  font-size: 11px;
-  font-weight: 500;
-}
-
-.nav-item.active {
-  color: var(--teal);
-  background: var(--gradient-soft);
-}
-
-.nav-icon {
-  font-size: 22px;
-  transition: all 0.3s ease;
-}
-
-.nav-item.active .nav-icon {
-  transform: translateY(-2px);
-}
-
-.empty-state {
-  text-align: center;
-  padding: 60px 20px;
-  color: var(--text2);
-}
-
-.empty-icon {
-  font-size: 48px;
-  margin-bottom: 16px;
-  opacity: 0.5;
-}
-
-.toast {
-  position: fixed;
-  top: 80px;
-  left: 50%;
-  transform: translateX(-50%) translateY(-100px);
-  background: var(--card);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--border);
-  padding: 14px 24px;
-  border-radius: var(--radius-sm);
-  box-shadow: var(--shadow);
-  z-index: 1000;
-  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  pointer-events: none;
-  opacity: 0;
-}
-
-.toast.show {
-  transform: translateX(-50%) translateY(0);
-  opacity: 1;
-}
-
-.progress-ring {
-  transform: rotate(-90deg);
-}
-
-.progress-bg {
-  fill: none;
-  stroke: rgba(148, 163, 184, 0.1);
-  stroke-width: 8;
-}
-
-.progress-bar {
-  fill: none;
-  stroke: url(#gradient1);
-  stroke-width: 8;
-  stroke-linecap: round;
-  transition: stroke-dasharray 1s ease;
-}
-
-.comparison-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-top: 16px;
-}
-
-.comparison-item {
-  background: rgba(15, 23, 42, 0.6);
-  padding: 12px;
-  border-radius: 12px;
-  text-align: center;
-}
-
-.comparison-label {
-  font-size: 11px;
-  color: var(--text2);
-  margin-bottom: 4px;
-}
-
-.comparison-value {
-  font-size: 20px;
-  font-weight: 700;
-}
-
-.line-chart {
-  position: relative;
-  height: 100%;
-}
-
-.line-chart svg {
-  width: 100%;
-  height: 100%;
-}
-
-@media (max-width: 380px) {
-  .stats-grid {
-    grid-template-columns: 1fr;
-  }
-  .stat-value {
-    font-size: 28px;
-  }
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,Cantarell,sans-serif}
+:root{
+  --teal:#0d9488;--cyan:#06b6d4;--teal-dark:#0f766e;--bg:#f0fdfa;--card:#ffffff;
+  --text:#134e4a;--text-light:#5eead4;--border:#99f6e4;--danger:#dc2626;
+  --warning:#f59e0b;--success:#10b981;--shadow:0 4px 6px -1px rgba(13,148,136,0.1),0 2px 4px -1px rgba(13,148,136,0.06);
+  --shadow-lg:0 10px 15px -3px rgba(13,148,136,0.1),0 4px 6px -2px rgba(13,148,136,0.05);
+}
+body{background:var(--bg);color:var(--text);min-height:100vh;padding-bottom:80px;overflow-x:hidden}
+header{
+  background:linear-gradient(135deg,var(--teal) 0%,var(--cyan) 100%);
+  color:white;padding:20px 16px;box-shadow:var(--shadow-lg);position:sticky;top:0;z-index:100
+}
+.header-content{display:flex;align-items:center;justify-content:space-between;max-width:1200px;margin:0 auto}
+.logo{display:flex;align-items:center;gap:12px}
+.logo-icon{
+  width:40px;height:40px;background:white;border-radius:12px;display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:20px;color:var(--teal)
+}
+h1{font-size:20px;font-weight:700}
+.subtitle{font-size:12px;opacity:0.9;margin-top:2px}
+.container{max-width:1200px;margin:0 auto;padding:16px}
+.view{display:none;animation:fadeIn 0.3s ease}
+.view.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.dashboard-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:24px}
+.card{
+  background:var(--card);border-radius:16px;padding:16px;box-shadow:var(--shadow);transition:all 0.3s ease;
+  border:1px solid var(--border)
+}
+.card:active{transform:scale(0.98)}
+.card-label{font-size:12px;color:#64748b;margin-bottom:8px;font-weight:500}
+.card-value{font-size:24px;font-weight:700;color:var(--teal);margin-bottom:4px}
+.card-sub{font-size:11px;color:#94a3b8;display:flex;align-items:center;gap:4px}
+.trend{font-weight:600}
+.trend.up{color:var(--danger)}
+.trend.down{color:var(--success)}
+.section-title{font-size:18px;font-weight:700;margin:24px 0 16px;color:var(--text)}
+.chart-container{
+  background:var(--card);border-radius:16px;padding:20px;box-shadow:var(--shadow);
+  border:1px solid var(--border);margin-bottom:16px
+}
+.chart-title{font-size:14px;font-weight:600;margin-bottom:16px;color:var(--text)}
+.bar-chart{display:flex;align-items:flex-end;height:160px;gap:8px;padding-top:20px}
+.bar{flex:1;background:linear-gradient(to top,var(--teal),var(--cyan));border-radius:8px 8px 0 0;
+  position:relative;transition:all 0.3s ease;min-height:4px}
+.bar:hover{opacity:0.8}
+.bar-label{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);font-size:10px;color:#64748b;white-space:nowrap}
+.bar-value{position:absolute;top:-20px;left:50%;transform:translateX(-50%);font-size:11px;font-weight:600;color:var(--teal)}
+.pie-chart{
+  width:180px;height:180px;border-radius:50%;margin:0 auto;position:relative;
+  background:conic-gradient(var(--teal) 0% 60%,var(--cyan) 60% 100%);
+  box-shadow:var(--shadow)
+}
+.pie-center{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:100px;height:100px;background:var(--card);border-radius:50%;display:flex;
+  align-items:center;justify-content:center;flex-direction:column
+}
+.pie-legend{display:flex;justify-content:center;gap:16px;margin-top:16px}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:12px}
+.legend-dot{width:12px;height:12px;border-radius:3px}
+.bottom-nav{
+  position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--border);
+  display:flex;justify-content:space-around;padding:8px 0;box-shadow:0 -4px 6px -1px rgba(13,148,136,0.1);z-index:100
+}
+.nav-item{
+  flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 4px;
+  color:#94a3b8;cursor:pointer;transition:all 0.2s ease;border:none;background:none;font-size:24px
+}
+.nav-item.active{color:var(--teal)}
+.nav-label{font-size:10px;font-weight:600}
+.fab{
+  position:fixed;bottom:90px;right:16px;width:56px;height:56px;border-radius:50%;
+  background:linear-gradient(135deg,var(--teal),var(--cyan));color:white;border:none;
+  box-shadow:var(--shadow-lg);font-size:28px;cursor:pointer;transition:all 0.3s ease;z-index:90
+}
+.fab:active{transform:scale(0.9)}
+.modal{
+  display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);
+  z-index:200;align-items:center;justify-content:center;padding:16px;animation:fadeIn 0.2s ease
+}
+.modal.active{display:flex}
+.modal-content{
+  background:var(--card);border-radius:20px;padding:24px;width:100%;max-width:400px;
+  max-height:90vh;overflow-y:auto;animation:slideUp 0.3s ease
+}
+@keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+.modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.modal-title{font-size:18px;font-weight:700;color:var(--text)}
+.close-btn{background:none;border:none;font-size:28px;color:#94a3b8;cursor:pointer;line-height:1}
+.form-group{margin-bottom:16px}
+label{display:block;font-size:13px;font-weight:600;margin-bottom:6px;color:var(--text)}
+input,select,textarea{
+  width:100%;padding:12px;border:2px solid var(--border);border-radius:12px;font-size:14px;
+  transition:all 0.2s ease;background:white;color:var(--text)
+}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(13,148,136,0.1)}
+input::placeholder{color:#cbd5e1}
+.btn{
+  width:100%;padding:14px;border:none;border-radius:12px;font-size:14px;font-weight:600;
+  cursor:pointer;transition:all 0.2s ease
+}
+.btn-primary{background:linear-gradient(135deg,var(--teal),var(--cyan));color:white}
+.btn-primary:active{transform:scale(0.98)}
+.btn-secondary{background:#f1f5f9;color:var(--text);margin-top:8px}
+.list{margin-top:16px}
+.list-item{
+  background:var(--bg);border-radius:12px;padding:12px;margin-bottom:8px;
+  display:flex;justify-content:space-between;align-items:center
+}
+.list-content{flex:1}
+.list-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px}
+.list-meta{font-size:11px;color:#94a3b8;display:flex;gap:8px;flex-wrap:wrap}
+.badge{
+  display:inline-block;padding:2px 8px;border-radius:6px;font-size:10px;font-weight:600;
+  background:#fef3c7;color:#92400e
+}
+.badge.partial{background:#fee2e2;color:#991b1b}
+.empty-state{text-align:center;padding:40px 20px;color:#94a3b8}
+.empty-icon{font-size:48px;margin-bottom:12px;opacity:0.5}
+.toast{
+  position:fixed;top:80px;left:50%;transform:translateX(-50%);background:var(--text);
+  color:white;padding:12px 20px;border-radius:12px;box-shadow:var(--shadow-lg);
+  z-index:300;animation:toastIn 0.3s ease;display:none
+}
+.toast.show{display:block}
+.toast.success{background:var(--success)}
+.toast.error{background:var(--danger)}
+@keyframes toastIn{from{transform:translateX(-50%) translateY(-20px);opacity:0}to{transform:translateX(-50%) translateY(0);opacity:1}}
+.tab-group{display:flex;gap:8px;margin-bottom:16px;background:var(--bg);padding:4px;border-radius:12px}
+.tab{
+  flex:1;padding:10px;border:none;background:transparent;border-radius:8px;font-size:13px;
+  font-weight:600;color:#94a3b8;cursor:pointer;transition:all 0.2s ease
+}
+.tab.active{background:white;color:var(--teal);box-shadow:var(--shadow)}
+.stat-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border)}
+.stat-row:last-child{border-bottom:none}
+.stat-label{font-size:13px;color:#64748b}
+.stat-value{font-size:14px;font-weight:600;color:var(--text)}
+@media (min-width:768px){
+  .dashboard-grid{grid-template-columns:repeat(4,1fr)}
+  .charts-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 }
 </style>
 </head>
 <body>
-<div class="app-container">
-  <header>
+<header>
+  <div class="header-content">
     <div class="logo">
-      <div class="logo-icon">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-          <path d="M5 16C5 16 3 16 3 14V9C3 7 5 7 5 7H19C19 7 21 7 21 9V14C21 16 19 16 19 16M5 16V18C5 18.5523 5.44772 19 6 19H7C7.55228 19 8 18.5523 8 18V16M19 16V18C19 18.5523 18.5523 19 18 19H17C16.4477 19 16 18.5523 16 18V16M5 12H19" stroke="white" stroke-width="2" stroke-linecap="round"/>
-          <path d="M12 7L10 11H14L12 7Z" fill="white"/>
-        </svg>
+      <div class="logo-icon">H</div>
+      <div>
+        <h1>HybridDrive</h1>
+        <div class="subtitle">Tracker v3.7 PRO</div>
       </div>
-      <h1>HybridDrive</h1>
-    </div>
-    <div class="car-badge" id="carBadge">
-      <span>🚗</span>
-      <span id="currentCarName">Nessuna auto</span>
-    </div>
-  </header>
+    <div id="currentVehicle">Nessun veicolo</div>
+  </div>
+</header>
 
-  <div class="content">
-    <!-- HOME -->
-    <div class="page active" id="page-home">
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-value" id="stat-spesa">0€</div>
-          <div class="stat-label">Spesa Mese</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value" id="stat-kml">0</div>
-          <div class="stat-label">km/L</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value" id="stat-kwh">0</div>
-          <div class="stat-label">kWh/100km</div>
-        </div>
-      </div>
-
+<div class="container">
+  <!-- HOME VIEW -->
+  <div id="view-home" class="view active">
+    <div class="dashboard-grid">
       <div class="card">
-        <div class="card-title">
-          <span>📊</span> Andamento Consumi
+        <div class="card-label">Spesa Mese</div>
+        <div class="card-value" id="expenseMonth">—</div>
+        <div class="card-sub">
+          <span class="trend" id="expenseTrend">—</span>
         </div>
-        <div class="chart-container">
-          <div class="bar-chart" id="consumiChart"></div>
-        </div>
-      </div>
-
       <div class="card">
-        <div class="card-title">
-          <span>⚡</span> Efficienza Elettrica
-        </div>
-        <div class="chart-container">
-          <div class="line-chart" id="elettricoChart"></div>
-        </div>
-        <div class="comparison-grid">
-          <div class="comparison-item">
-            <div class="comparison-label">Casa</div>
-            <div class="comparison-value" style="color: var(--green);" id="effCasa">0%</div>
+        <div class="card-label">Costo/km</div>
+        <div class="card-value" id="costPerKm">—</div>
+        <div class="card-sub">Ultimo pieno</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Risparmio Elettrico</div>
+        <div class="card-value" id="evSaving">—</div>
+        <div class="card-sub">vs benzina</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Autonomia Stimata</div>
+        <div class="card-value" id="rangeEst">—</div>
+        <div class="card-sub" id="rangeEstSub">km</div>
+      </div>
+    </div>
+
+    <h2 class="section-title">Statistiche</h2>
+    <div class="chart-container">
+      <div class="chart-title">Spesa Ultimi 6 Mesi</div>
+      <div class="bar-chart" id="barChart"></div>
+    </div>
+
+    <div class="charts-grid">
+      <div class="chart-container">
+        <div class="chart-title">Mix Benzina / Elettrico</div>
+        <div class="pie-chart" id="pieChart">
+          <div class="pie-center">
+            <div style="font-size:20px;font-weight:700;color:var(--teal)" id="evPercent">—</div>
+            <div style="font-size:11px;color:#94a3b8">Elettrico</div>
           </div>
-          <div class="comparison-item">
-            <div class="comparison-label">Colonnina</div>
-            <div class="comparison-value" style="color: var(--amber);" id="effColonnina">0%</div>
+        <div class="pie-legend">
+          <div class="legend-item">
+            <div class="legend-dot" style="background:var(--teal)"></div>
+            <span>Benzina</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:var(--cyan)"></div>
+            <span>Elettrico</span>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- NUOVO -->
-    <div class="page" id="page-nuovo">
-      <div class="card">
-        <div class="card-title">
-          <span>➕</span> Nuovo Rifornimento
-        </div>
-        <div class="input-group">
-          <label class="input-label">Tipo Carburante</label>
-          <select class="input select" id="inputTipo">
-            <option value="benzina">⛽ Benzina</option>
-            <option value="diesel">⛽ Diesel</option>
-            <option value="metano">💨 Metano</option>
-            <option value="gpl">🔥 GPL</option>
-          </select>
-        </div>
-        <div class="input-group">
-          <label class="input-label">Litri / Kg</label>
-          <input type="number" class="input" id="inputLitri" placeholder="45.5" step="0.1">
-        </div>
-        <div class="input-group">
-          <label class="input-label">Prezzo Totale €</label>
-          <input type="number" class="input" id="inputPrezzo" placeholder="85.50" step="0.01">
-        </div>
-        <div class="input-group">
-          <label class="input-label">Chilometri Percorsi</label>
-          <input type="number" class="input" id="inputKm" placeholder="650">
-        </div>
-        <div class="input-group">
-          <label class="input-label">Data</label>
-          <input type="date" class="input" id="inputData">
-        </div>
-        <button class="btn" onclick="aggiungiRifornimento()">Salva Rifornimento</button>
-      </div>
-    </div>
-
-    <!-- ELETTRICO -->
-    <div class="page" id="page-elettrico">
-      <div class="tabs">
-        <button class="tab active" onclick="switchElettricoTab('casa')">🏠 Casa</button>
-        <button class="tab" onclick="switchElettricoTab('colonnina')">🔌 Colonnina</button>
-      </div>
-
-      <div class="card" id="tabCasa">
-        <div class="card-title">
-          <span>🏠</span> Ricarica Domestica
-        </div>
-        <div class="input-group">
-          <label class="input-label">kWh Ricaricati</label>
-          <input type="number" class="input" id="inputKwhCasa" placeholder="35.5" step="0.1">
-        </div>
-        <div class="input-group">
-          <label class="input-label">Costo €</label>
-          <input type="number" class="input" id="inputCostoCasa" placeholder="8.50" step="0.01">
-        </div>
-        <div class="input-group">
-          <label class="input-label">Km Percorsi in EV</label>
-          <input type="number" class="input" id="inputKmCasa" placeholder="180">
-        </div>
-        <button class="btn" onclick="aggiungiRicarica('casa')">Salva Ricarica</button>
-      </div>
-
-      <div class="card" id="tabColonnina" style="display:none">
-        <div class="card-title">
-          <span>🔌</span> Ricarica Colonnina
-        </div>
-        <div class="input-group">
-          <label class="input-label">kWh Ricaricati</label>
-          <input type="number" class="input" id="inputKwhCol" placeholder="42.3" step="0.1">
-        </div>
-        <div class="input-group">
-          <label class="input-label">Costo €</label>
-          <input type="number" class="input" id="inputCostoCol" placeholder="18.90" step="0.01">
-        </div>
-        <div class="input-group">
-          <label class="input-label">Km Percorsi in EV</label>
-          <input type="number" class="input" id="inputKmCol" placeholder="220">
-        </div>
-        <button class="btn" onclick="aggiungiRicarica('colonnina')">Salva Ricarica</button>
-      </div>
-
-      <div class="card">
-        <div class="card-title">
-          <span>⚡</span> Ultime Ricariche
-        </div>
-        <div class="record-list" id="listaRicariche"></div>
-      </div>
-    </div>
-
-    <!-- STORICO -->
-    <div class="page" id="page-storico">
-      <div class="card">
-        <div class="card-title">
-          <span>📊</span> Storico Rifornimenti
-        </div>
-        <div class="record-list" id="listaStorico"></div>
-      </div>
-    </div>
-
-    <!-- AUTO -->
-    <div class="page" id="page-auto">
-      <div class="card">
-        <div class="card-title">
-          <span>🚗</span> Le Mie Auto
-        </div>
-        <div class="car-list" id="listaAuto"></div>
-        <button class="btn btn-secondary" onclick="mostraFormAuto()">+ Aggiungi Auto</button>
-      </div>
-
-      <div class="card" id="formAuto" style="display:none">
-        <div class="card-title">
-          <span>➕</span> Nuova Auto
-        </div>
-        <div class="input-group">
-          <label class="input-label">Marca e Modello</label>
-          <input type="text" class="input" id="inputAutoNome" placeholder="Toyota RAV4 Hybrid">
-        </div>
-        <div class="input-group">
-          <label class="input-label">Tipo Motore</label>
-          <select class="input select" id="inputAutoTipo">
-            <option value="hybrid">Hybrid</option>
-            <option value="phev">Plug-in Hybrid</option>
-            <option value="ice">Termico</option>
-            <option value="bev">Elettrico</option>
-          </select>
-        </div>
-        <div class="input-group">
-          <label class="input-label">Capacità Batteria kWh</label>
-          <input type="number" class="input" id="inputAutoBatt" placeholder="18.1" step="0.1">
-        </div>
-        <div class="btn-group">
-          <button class="btn btn-secondary" onclick="nascondiFormAuto()">Annulla</button>
-          <button class="btn" onclick="aggiungiAuto()">Salva</button>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-title">
-          <span>📈</span> Statistiche Auto Corrente
-        </div>
-        <div class="comparison-grid">
-          <div class="comparison-item">
-            <div class="comparison-label">Totale Rifornimenti</div>
-            <div class="comparison-value" id="statTotRif">0</div>
+      <div class="chart-container">
+        <div class="chart-title">Dettaglio Veicolo</div>
+        <div id="vehicleStats">
+          <div class="stat-row">
+            <span class="stat-label">Km Totali</span>
+            <span class="stat-value" id="totalKm">—</span>
           </div>
-          <div class="comparison-item">
-            <div class="comparison-label">Totale Ricariche</div>
-            <div class="comparison-value" id="statTotRic">0</div>
+          <div class="stat-row">
+            <span class="stat-label">€/kWh Medio</span>
+            <span class="stat-value" id="avgKwhPrice">—</span>
           </div>
-          <div class="comparison-item">
-            <div class="comparison-label">Spesa Totale</div>
-            <div class="comparison-value" id="statTotSpesa">0€</div>
+          <div class="stat-row">
+            <span class="stat-label">Consumo Medio</span>
+            <span class="stat-value" id="avgConsumption">—</span>
           </div>
-          <div class="comparison-item">
-            <div class="comparison-label">Km Totali</div>
-            <div class="comparison-value" id="statTotKm">0</div>
+          <div class="stat-row">
+            <span class="stat-label">Prossimo Tagliando</span>
+            <span class="stat-value" id="nextService">—</span>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <nav class="bottom-nav">
-    <div class="nav-container">
-      <button class="nav-item active" onclick="switchPage('home', this)">
-        <div class="nav-icon">🏠</div>
-        <span>Home</span>
-      </button>
-      <button class="nav-item" onclick="switchPage('nuovo', this)">
-        <div class="nav-icon">➕</div>
-        <span>Nuovo</span>
-      </button>
-      <button class="nav-item" onclick="switchPage('elettrico', this)">
-        <div class="nav-icon">⚡</div>
-        <span>Elettrico</span>
-      </button>
-      <button class="nav-item" onclick="switchPage('storico', this)">
-        <div class="nav-icon">📊</div>
-        <span>Storico</span>
-      </button>
-      <button class="nav-item" onclick="switchPage('auto', this)">
-        <div class="nav-icon">🚗</div>
-        <span>Auto</span>
-      </button>
+  <!-- REFUEL VIEW -->
+  <div id="view-refuel" class="view">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+      <h2 class="section-title" style="margin:0">Rifornimenti</h2>
+      <button class="btn btn-primary" style="width:auto;padding:8px 16px" onclick="openModal('refuel')">+ Nuovo</button>
     </div>
-  </nav>
+    <div id="refuelList" class="list"></div>
+  </div>
+
+  <!-- BOLLETTE VIEW -->
+  <div id="view-bill" class="view">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+      <h2 class="section-title" style="margin:0">Bollette Energia</h2>
+      <button class="btn btn-primary" style="width:auto;padding:8px 16px" onclick="openModal('bill')">+ Nuova</button>
+    </div>
+    <div id="billList" class="list"></div>
+  </div>
+
+  <!-- CHARGE VIEW -->
+  <div id="view-charge" class="view">
+    <div class="tab-group">
+      <button class="tab active" onclick="switchChargeTab('home',event)">Casa</button>
+      <button class="tab" onclick="switchChargeTab('public',event)">Colonnina</button>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+      <h2 class="section-title" style="margin:0">Ricariche</h2>
+      <button class="btn btn-primary" style="width:auto;padding:8px 16px" onclick="openModal('charge')">+ Nuova</button>
+    </div>
+    <div id="chargeList" class="list"></div>
+  </div>
+
+  <!-- STATS VIEW -->
+  <div id="view-stats" class="view">
+    <h2 class="section-title">Statistiche Dettagliate</h2>
+    <div class="chart-container">
+      <div class="chart-title">Riepilogo Annuale</div>
+      <div id="yearStats"></div>
+    </div>
+  </div>
+
+  <!-- VEHICLE VIEW -->
+  <div id="view-vehicle" class="view">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+      <h2 class="section-title" style="margin:0">Veicoli</h2>
+      <button class="btn btn-primary" style="width:auto;padding:8px 16px" onclick="openModal('vehicle')">+ Nuovo</button>
+    </div>
+    <div id="vehicleList" class="list"></div>
+  </div>
 </div>
+
+<button class="fab" onclick="openQuickAdd()">+</button>
+
+<!-- MODAL REFUEL -->
+<div id="modal-refuel" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <div class="modal-title">Nuovo Rifornimento</div>
+      <button class="close-btn" onclick="closeModal('refuel')">×</button>
+    </div>
+    <form id="formRefuel">
+      <div class="form-group">
+        <label>Data</label>
+        <input type="date" id="refuelDate" required>
+      </div>
+      <div class="form-group">
+        <label>Litri</label>
+        <input type="number" step="0.01" id="refuelLiters" placeholder="es. 45.30" required>
+      </div>
+      <div class="form-group">
+        <label>Importo €</label>
+        <input type="number" step="0.01" id="refuelAmount" placeholder="es. 82.50" required>
+      </div>
+      <div class="form-group">
+        <label>Odometro km (opzionale)</label>
+        <input type="number" id="refuelKm" placeholder="Lascia vuoto per parziale">
+      </div>
+      <div class="form-group">
+        <label>€/L</label>
+        <input type="number" step="0.001" id="refuelPriceLiter" placeholder="Calcolato auto">
+      </div>
+      <button type="submit" class="btn btn-primary">Salva Rifornimento</button>
+    </form>
+  </div>
+</div>
+
+<!-- MODAL BILL -->
+<div id="modal-bill" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <div class="modal-title">Nuova Bolletta</div>
+      <button class="close-btn" onclick="closeModal('bill')">×</button>
+    </div>
+    <form id="formBill">
+      <div class="form-group">
+        <label>Periodo</label>
+        <input type="month" id="billPeriod" required>
+      </div>
+      <div class="form-group">
+        <label>kWh Consumati</label>
+        <input type="number" step="0.01" id="billKwh" placeholder="es. 250" required>
+      </div>
+      <div class="form-group">
+        <label>Importo Totale €</label>
+        <input type="number" step="0.01" id="billAmount" placeholder="es. 67.50" required>
+      </div>
+      <div class="form-group">
+        <label>€/kWh (calcolato)</label>
+        <input type="number" step="0.001" id="billPriceKwh" placeholder="Auto" readonly>
+      </div>
+      <button type="submit" class="btn btn-primary">Salva Bolletta</button>
+    </form>
+  </div>
+</div>
+
+<!-- MODAL CHARGE -->
+<div id="modal-charge" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <div class="modal-title">Nuova Ricarica</div>
+      <button class="close-btn" onclick="closeModal('charge')">×</button>
+    </div>
+    <form id="formCharge">
+      <div class="form-group">
+        <label>Tipo</label>
+        <select id="chargeType">
+          <option value="home">Casa</option>
+          <option value="public">Colonnina</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Data</label>
+        <input type="date" id="chargeDate" required>
+      </div>
+      <div class="form-group">
+        <label>kWh Caricati</label>
+        <input type="number" step="0.01" id="chargeKwh" placeholder="es. 12.5" required>
+      </div>
+      <div class="form-group" id="chargePriceGroup">
+        <label>€/kWh</label>
+        <input type="number" step="0.001" id="chargePriceKwh" placeholder="Da bolletta se Casa">
+      </div>
+      <div class="form-group" id="chargeAmountGroup" style="display:none">
+        <label>Importo €</label>
+        <input type="number" step="0.01" id="chargeAmount" placeholder="es. 5.40">
+      </div>
+      <button type="submit" class="btn btn-primary">Salva Ricarica</button>
+    </form>
+  </div>
+</div>
+
+<!-- MODAL VEHICLE -->
+<div id="modal-vehicle" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <div class="modal-title">Nuovo Veicolo</div>
+      <button class="close-btn" onclick="closeModal('vehicle')">×</button>
+    </div>
+    <form id="formVehicle">
+      <div class="form-group">
+        <label>Nome</label>
+        <input type="text" id="vehicleName" placeholder="es. Toyota Yaris Cross" required>
+      </div>
+      <div class="form-group">
+        <label>Targa</label>
+        <input type="text" id="vehiclePlate" placeholder="es. AB123CD">
+      </div>
+      <div class="form-group">
+        <label>Capacità Batteria kWh</label>
+        <input type="number" step="0.1" id="vehicleBattery" placeholder="es. 0.76" required>
+      </div>
+      <div class="form-group">
+        <label>Serbatoio Litri</label>
+        <input type="number" step="0.1" id="vehicleTank" placeholder="es. 36" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Salva Veicolo</button>
+    </form>
+  </div>
+</div>
+
+<!-- MODAL QUICK ADD -->
+<div id="modal-quick" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <div class="modal-title">Aggiungi Rapido</div>
+      <button class="close-btn" onclick="closeModal('quick')">×</button>
+    </div>
+    <button class="btn btn-primary" style="margin-bottom:8px" onclick="closeModal('quick');openModal('refuel')">⛽ Rifornimento</button>
+    <button class="btn btn-primary" style="margin-bottom:8px" onclick="closeModal('quick');openModal('charge')">⚡ Ricarica</button>
+    <button class="btn btn-primary" onclick="closeModal('quick');openModal('bill')">💡 Bolletta</button>
+  </div>
+</div>
+
+<nav class="bottom-nav">
+  <button class="nav-item active" onclick="switchView('home')">
+    <span>🏠</span>
+    <span class="nav-label">Home</span>
+  </button>
+  <button class="nav-item" onclick="switchView('refuel')">
+    <span>➕</span>
+    <span class="nav-label">Riforni</span>
+  </button>
+  <button class="nav-item" onclick="switchView('bill')">
+    <span>💡</span>
+    <span class="nav-label">Bollette</span>
+  </button>
+  <button class="nav-item" onclick="switchView('charge')">
+    <span>⚡</span>
+    <span class="nav-label">Ricarica</span>
+  </button>
+  <button class="nav-item" onclick="switchView('stats')">
+    <span>📊</span>
+    <span class="nav-label">Stats</span>
+  </button>
+  <button class="nav-item" onclick="switchView('vehicle')">
+    <span>🚗</span>
+    <span class="nav-label">Auto</span>
+  </button>
+</nav>
 
 <div class="toast" id="toast"></div>
 
-<svg width="0" height="0">
-  <defs>
-    <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#14b8a6;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#06b6d4;stop-opacity:1" />
-    </linearGradient>
-  </defs>
-</svg>
-
 <script>
-var db = {
-  auto: [],
-  autoCorrente: null,
-  rifornimenti: [],
-  ricariche: []
-};
+// STORAGE
+const LS_KEY = 'hd37';
+let db = {vehicles:[],refuels:[],bills:[],charges:[],currentVehicleId:null};
+let currentChargeTab = 'home';
 
-function loadDB() {
-  try {
-    var data = localStorage.getItem('hd35');
-    if (data) {
-      var parsed = JSON.parse(data);
-      db = parsed || db;
-      if (!db.auto) db.auto = [];
-      if (!db.rifornimenti) db.rifornimenti = [];
-      if (!db.ricariche) db.ricariche = [];
-    }
-  } catch(e) {
-    console.log('DB load error:', e);
-  }
+function loadDB(){
+  try{
+    const stored = localStorage.getItem(LS_KEY);
+    if(stored) db = JSON.parse(stored);
+  }catch(e){console.error('Load error',e)}
 }
 
-function saveDB() {
-  try {
-    localStorage.setItem('hd35', JSON.stringify(db));
-  } catch(e) {
-    console.log('DB save error:', e);
-  }
+function saveDB(){
+  localStorage.setItem(LS_KEY, JSON.stringify(db));
 }
 
-function showToast(msg) {
-  var toast = document.getElementById('toast');
+function showToast(msg,type='success'){
+  const toast = document.getElementById('toast');
   toast.textContent = msg;
-  toast.className = 'toast show';
-  setTimeout(function() {
-    toast.className = 'toast';
-  }, 2500);
+  toast.className = 'toast show ' + type;
+  setTimeout(()=>toast.className='toast',3000);
 }
 
-function switchPage(page, btn) {
-  var pages = document.querySelectorAll('.page');
-  var navItems = document.querySelectorAll('.nav-item');
-  for (var i = 0; i < pages.length; i++) {
-    pages[i].classList.remove('active');
-  }
-  for (var i = 0; i < navItems.length; i++) {
-    navItems[i].classList.remove('active');
-  }
-  document.getElementById('page-' + page).classList.add('active');
-  if (btn) btn.classList.add('active');
-  if (page === 'home') updateDashboard();
-  if (page === 'storico') updateStorico();
-  if (page === 'elettrico') updateRicariche();
-  if (page === 'auto') updateAuto();
-}
-
-function switchElettricoTab(tab) {
-  var tabs = document.querySelectorAll('#page-elettrico .tab');
-  for (var i = 0; i < tabs.length; i++) {
-    tabs[i].classList.remove('active');
-  }
-  document.getElementById('tabCasa').style.display = tab === 'casa' ? 'block' : 'none';
-  document.getElementById('tabColonnina').style.display = tab === 'colonnina' ? 'block' : 'none';
-  event.target.classList.add('active');
-}
-
-function aggiungiRifornimento() {
-  if (!db.autoCorrente) {
-    showToast('Seleziona prima un auto');
-    return;
-  }
-  var tipo = document.getElementById('inputTipo').value;
-  var litri = parseFloat(document.getElementById('inputLitri').value);
-  var prezzo = parseFloat(document.getElementById('inputPrezzo').value);
-  var km = parseFloat(document.getElementById('inputKm').value);
-  var data = document.getElementById('inputData').value;
-  
-  if (!litri || !prezzo || !km || !data) {
-    showToast('Compila tutti i campi');
-    return;
-  }
-  
-  db.rifornimenti.push({
-    id: Date.now(),
-    autoId: db.autoCorrente,
-    tipo: tipo,
-    litri: litri,
-    prezzo: prezzo,
-    km: km,
-    data: data
-  });
-  
-  saveDB();
-  document.getElementById('inputLitri').value = '';
-  document.getElementById('inputPrezzo').value = '';
-  document.getElementById('inputKm').value = '';
-  showToast('Rifornimento salvato ✓');
-  updateDashboard();
-}
-
-function aggiungiRicarica(tipo) {
-  if (!db.autoCorrente) {
-    showToast('Seleziona prima un auto');
-    return;
-  }
-  var prefix = tipo === 'casa' ? 'Casa' : 'Col';
-  var kwh = parseFloat(document.getElementById('inputKwh' + prefix).value);
-  var costo = parseFloat(document.getElementById('inputCosto' + prefix).value);
-  var km = parseFloat(document.getElementById('inputKm' + prefix).value);
-  
-  if (!kwh || !costo) {
-    showToast('Compila tutti i campi');
-    return;
-  }
-  
-  db.ricariche.push({
-    id: Date.now(),
-    autoId: db.autoCorrente,
-    tipo: tipo,
-    kwh: kwh,
-    costo: costo,
-    km: km || 0,
-    data: new Date().toISOString().split('T')[0]
-  });
-  
-  saveDB();
-  document.getElementById('inputKwh' + prefix).value = '';
-  document.getElementById('inputCosto' + prefix).value = '';
-  document.getElementById('inputKm' + prefix).value = '';
-  showToast('Ricarica salvata ✓');
-  updateDashboard();
-  updateRicariche();
-}
-
-function updateDashboard() {
-  var rifCorrente = db.rifornimenti.filter(function(r) { return r.autoId === db.autoCorrente; });
-  var ricCorrente = db.ricariche.filter(function(r) { return r.autoId === db.autoCorrente; });
-  var meseCorrente = new Date().toISOString().slice(0, 7);
-  
-  var spesaMese = 0;
-  var kmMese = 0;
-  var kwhMese = 0;
-  var kmElettrici = 0;
-  
-  for (var i = 0; i < rifCorrente.length; i++) {
-    if (rifCorrente[i].data && rifCorrente[i].data.startsWith(meseCorrente)) {
-      spesaMese += rifCorrente[i].prezzo;
-      kmMese += rifCorrente[i].km;
-    }
-  }
-  
-  for (var i = 0; i < ricCorrente.length; i++) {
-    if (ricCorrente[i].data && ricCorrente[i].data.startsWith(meseCorrente)) {
-      spesaMese += ricCorrente[i].costo;
-      kwhMese += ricCorrente[i].kwh;
-      kmElettrici += ricCorrente[i].km || 0;
-    }
-  }
-  
-  var litriMese = rifCorrente.filter(function(r) { return r.data && r.data.startsWith(meseCorrente); })
-    .reduce(function(s, r) { return s + r.litri; }, 0);
-  var kmL = litriMese > 0 ? (kmMese / litriMese).toFixed(1) : 0;
-  var kwh100 = kmElettrici > 0 ? ((kwhMese / kmElettrici) * 100).toFixed(1) : 0;
-  
-  document.getElementById('stat-spesa').textContent = spesaMese.toFixed(0) + '€';
-  document.getElementById('stat-kml').textContent = kmL;
-  document.getElementById('stat-kwh').textContent = kwh100;
-  
-  updateChartConsumi(rifCorrente);
-  updateChartElettrico(ricCorrente);
-}
-
-function updateChartConsumi(rif) {
-  var chart = document.getElementById('consumiChart');
-  chart.innerHTML = '';
-  
-  var ultimi6 = rif.slice(-6);
-  if (ultimi6.length === 0) {
-    chart.innerHTML = '<div class="empty-state"><div class="empty-icon">📊</div><div>Nessun dato</div></div>';
-    return;
-  }
-  
-  var max = 0;
-  for (var i = 0; i < ultimi6.length; i++) {
-    var val = ultimi6[i].km / ultimi6[i].litri;
-    if (val > max) max = val;
-  }
-  if (max === 0) max = 1;
-  
-  for (var i = 0; i < ultimi6.length; i++) {
-    var kmL = ultimi6[i].km / ultimi6[i].litri;
-    var h = (kmL / max) * 100;
-    var bar = document.createElement('div');
-    bar.className = 'bar';
-    bar.style.height = h + '%';
-    var label = document.createElement('div');
-    label.className = 'bar-label';
-    label.textContent = new Date(ultimi6[i].data).getDate() + '/' + (new Date(ultimi6[i].data).getMonth() + 1);
-    bar.appendChild(label);
-    chart.appendChild(bar);
-  }
-}
-
-function updateChartElettrico(ric) {
-  var chart = document.getElementById('elettricoChart');
-  chart.innerHTML = '';
-  
-  var casa = ric.filter(function(r) { return r.tipo === 'casa' && r.km > 0; });
-  var col = ric.filter(function(r) { return r.tipo === 'colonnina' && r.km > 0; });
-  
-  var effCasa = 0, effCol = 0;
-  if (casa.length > 0) {
-    var tot = 0;
-    for (var i = 0; i < casa.length; i++) {
-      tot += (casa[i].kwh / casa[i].km) * 100;
-    }
-    effCasa = (tot / casa.length).toFixed(1);
-  }
-  if (col.length > 0) {
-    var tot = 0;
-    for (var i = 0; i < col.length; i++) {
-      tot += (col[i].kwh / col[i].km) * 100;
-    }
-    effCol = (tot / col.length).toFixed(1);
-  }
-  
-  document.getElementById('effCasa').textContent = effCasa + ' kWh';
-  document.getElementById('effColonnina').textContent = effCol + ' kWh';
-  
-  var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.setAttribute('viewBox', '0 0 300 160');
-  
-  var ultimi = ric.slice(-8).filter(function(r) { return r.km > 0; });
-  if (ultimi.length < 2) {
-    chart.innerHTML = '<div class="empty-state"><div class="empty-icon">⚡</div><div>Dati insufficienti</div></div>';
-    return;
-  }
-  
-  var max = 0;
-  for (var i = 0; i < ultimi.length; i++) {
-    var val = (ultimi[i].kwh / ultimi[i].km) * 100;
-    if (val > max) max = val;
-  }
-  if (max === 0) max = 1;
-  
-  var points = '';
-  var stepX = 300 / (ultimi.length - 1);
-  for (var i = 0; i < ultimi.length; i++) {
-    var kwh100 = (ultimi[i].kwh / ultimi[i].km) * 100;
-    var x = i * stepX;
-    var y = 140 - (kwh100 / max) * 120;
-    points += x + ',' + y + ' ';
-  }
-  
-  var polyline = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
-  polyline.setAttribute('points', points);
-  polyline.setAttribute('fill', 'none');
-  polyline.setAttribute('stroke', 'url(#gradient1)');
-  polyline.setAttribute('stroke-width', '3');
-  polyline.setAttribute('stroke-linecap', 'round');
-  svg.appendChild(polyline);
-  
-  chart.appendChild(svg);
-}
-
-function updateStorico() {
-  var lista = document.getElementById('listaStorico');
-  var rif = db.rifornimenti.filter(function(r) { return r.autoId === db.autoCorrente; })
-    .sort(function(a, b) { return new Date(b.data) - new Date(a.data); });
-  
-  if (rif.length === 0) {
-    lista.innerHTML = '<div class="empty-state"><div class="empty-icon">📊</div><div>Nessun rifornimento</div></div>';
-    return;
-  }
-  
-  lista.innerHTML = '';
-  for (var i = 0; i < rif.length; i++) {
-    var r = rif[i];
-    var kmL = (r.km / r.litri).toFixed(1);
-    var item = document.createElement('div');
-    item.className = 'record-item';
-    item.innerHTML = '<div class="record-info">' +
-      '<div class="record-date">' + new Date(r.data).toLocaleDateString('it-IT') + '</div>' +
-      '<div class="record-data"><span>' + r.litri.toFixed(1) + 'L</span><span>' + r.km + 'km</span><span>' + kmL + ' km/L</span></div>' +
-      '</div><div class="record-price">' + r.prezzo.toFixed(2) + '€</div>';
-    lista.appendChild(item);
-  }
-}
-
-function updateRicariche() {
-  var lista = document.getElementById('listaRicariche');
-  var ric = db.ricariche.filter(function(r) { return r.autoId === db.autoCorrente; })
-    .sort(function(a, b) { return new Date(b.data) - new Date(a.data); });
-  
-  if (ric.length === 0) {
-    lista.innerHTML = '<div class="empty-state"><div class="empty-icon">⚡</div><div>Nessuna ricarica</div></div>';
-    return;
-  }
-  
-  lista.innerHTML = '';
-  for (var i = 0; i < Math.min(ric.length, 10); i++) {
-    var r = ric[i];
-    var icon = r.tipo === 'casa' ? '🏠' : '🔌';
-    var eff = r.km > 0 ? ((r.kwh / r.km) * 100).toFixed(1) + ' kWh/100km' : '';
-    var item = document.createElement('div');
-    item.className = 'record-item';
-    item.innerHTML = '<div class="record-info">' +
-      '<div class="record-date">' + icon + ' ' + new Date(r.data).toLocaleDateString('it-IT') + '</div>' +
-      '<div class="record-data"><span>' + r.kwh.toFixed(1) + ' kWh</span><span>' + eff + '</span></div>' +
-      '</div><div class="record-price">' + r.costo.toFixed(2) + '€</div>';
-    lista.appendChild(item);
-  }
-}
-
-function mostraFormAuto() {
-  document.getElementById('formAuto').style.display = 'block';
-}
-
-function nascondiFormAuto() {
-  document.getElementById('formAuto').style.display = 'none';
-  document.getElementById('inputAutoNome').value = '';
-  document.getElementById('inputAutoBatt').value = '';
-}
-
-function aggiungiAuto() {
-  var nome = document.getElementById('inputAutoNome').value.trim();
-  var tipo = document.getElementById('inputAutoTipo').value;
-  var batt = parseFloat(document.getElementById('inputAutoBatt').value) || 0;
-  
-  if (!nome) {
-    showToast('Inserisci nome auto');
-    return;
-  }
-  
-  var auto = {
-    id: Date.now(),
-    nome: nome,
-    tipo: tipo,
-    batteria: batt
+// PWA MANIFEST + SW
+if(location.protocol.startsWith('http')){
+  const manifest = {
+    name:'HybridDrive Tracker',
+    short_name:'HybridDrive',
+    start_url:'./',
+    display:'standalone',
+    background_color:'#f0fdfa',
+    theme_color:'#0d9488',
+    icons:[{src:'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" fill="%230d9488" rx="80"/><text x="50%" y="50%" font-size="280" font-weight="800" fill="white" text-anchor="middle" dominant-baseline="middle">H</text></svg>',sizes:'512x512',type:'image/svg+xml'}]
   };
+  document.getElementById('manifest').href = URL.createObjectURL(new Blob([JSON.stringify(manifest)],{type:'application/json'}));
   
-  db.auto.push(auto);
-  if (!db.autoCorrente) db.autoCorrente = auto.id;
-  saveDB();
-  nascondiFormAuto();
-  updateAuto();
-  showToast('Auto aggiunta ✓');
+  if('serviceWorker' in navigator){
+    const sw=`self.addEventListener('install',e=>self.skipWaiting());self.addEventListener('activate',e=>e.waitUntil(clients.claim()));`;
+    navigator.serviceWorker.register(URL.createObjectURL(new Blob([sw],{type:'text/javascript'})));
+  }
 }
 
-function selezionaAuto(id) {
-  db.autoCorrente = id;
-  saveDB();
-  updateAuto();
-  updateDashboard();
-  showToast('Auto selezionata');
+// UTILS
+function formatCurrency(v){
+  return v===null||v===undefined? '—' : '€'+v.toFixed(2);
+}
+function formatNumber(v,d=0){
+  return v===null||v===undefined? '—' : v.toFixed(d);
+}
+function formatDate(d){
+  const dt = new Date(d);
+  return dt.toLocaleDateString('it-IT',{day:'2-digit',month:'2-digit'});
 }
 
-function updateAuto() {
-  var lista = document.getElementById('listaAuto');
-  lista.innerHTML = '';
+// CALCULATIONS
+function getCurrentVehicle(){
+  return db.vehicles.find(v=>v.id===db.currentVehicleId);
+}
+
+function getAvgKwhPrice(){
+  const bills = db.bills.filter(b=>b.vehicleId===db.currentVehicleId);
+  if(!bills.length) return null;
+  const totalKwh = bills.reduce((s,b)=>s+b.kwh,0);
+  const totalAmount = bills.reduce((s,b)=>s+b.amount,0);
+  return totalKwh>0 ? totalAmount/totalKwh : null;
+}
+
+function getLastOdo(){
+  const refuels = db.refuels.filter(r=>r.vehicleId===db.currentVehicleId&&r.km).sort((a,b)=>b.km-a.km);
+  return refuels[0]?.km || null;
+}
+
+function calcConsumption(){
+  const refuels = db.refuels.filter(r=>r.vehicleId===db.currentVehicleId&&r.km).sort((a,b)=>a.km-b.km);
+  if(refuels.length<2) return null;
+  let totalKm=0,totalLiters=0;
+  for(let i=1;i<refuels.length;i++){
+    const km = refuels[i].km-refuels[i-1].km;
+    if(km>0){totalKm+=km;totalLiters+=refuels[i-1].liters}
+  }
+  return totalKm>0 ? (totalLiters/totalKm*100) : null;
+}
+
+function calcMonthlyExpense(){
+  const now = new Date();
+  const monthStart = new Date(now.getFullYear(),now.getMonth(),1);
+  const lastMonthStart = new Date(now.getFullYear(),now.getMonth()-1,1);
   
-  if (db.auto.length === 0) {
-    lista.innerHTML = '<div class="empty-state"><div class="empty-icon">🚗</div><div>Nessuna auto</div></div>';
+  let expense = 0, lastExpense = 0;
+  db.refuels.filter(r=>r.vehicleId===db.currentVehicleId).forEach(r=>{
+    const d=new Date(r.date);
+    if(d>=monthStart) expense+=r.amount;
+    else if(d>=lastMonthStart&&d<monthStart) lastExpense+=r.amount;
+  });
+  db.charges.filter(c=>c.vehicleId===db.currentVehicleId).forEach(c=>{
+    const d=new Date(c.date);
+    const cost = c.type==='home' ? c.kwh*(c.priceKwh||getAvgKwhPrice()||0) : c.amount;
+    if(d>=monthStart) expense+=cost;
+    else if(d>=lastMonthStart&&d<monthStart) lastExpense+=cost;
+  });
+  
+  const trend = lastExpense>0 ? ((expense-lastExpense)/lastExpense*100).toFixed(1) : 0;
+  return {current:expense,trend};
+}
+
+function calcLastTripCost(){
+  const refuels = db.refuels.filter(r=>r.vehicleId===db.currentVehicleId&&r.km).sort((a,b)=>b.km-a.km);
+  if(refuels.length<2) return null;
+  const km = refuels[0].km-refuels[1].km;
+  return km>0 ? refuels[0].amount/km : null;
+}
+
+function calcEVSaving(){
+  const charges = db.charges.filter(c=>c.vehicleId===db.currentVehicleId);
+  if(!charges.length) return null;
+  const totalKwh = charges.reduce((s,c)=>s+c.kwh,0);
+  const totalCost = charges.reduce((s,c)=>{
+    return s + (c.type==='home' ? c.kwh*(c.priceKwh||getAvgKwhPrice()||0) : c.amount);
+  },0);
+  const consumption = calcConsumption();
+  if(!consumption) return null;
+  const kmEV = totalKwh*5;
+  const fuelCost = kmEV/100*consumption*1.8;
+  return fuelCost-totalCost;
+}
+
+function calcRange(){
+  const vehicle = getCurrentVehicle();
+  const lastOdo = getLastOdo();
+  if(!vehicle||!lastOdo) return null;
+  const consumption = calcConsumption();
+  if(!consumption) return null;
+  const avgSpeed = 15;
+  const lastRefuel = db.refuels.filter(r=>r.vehicleId===db.currentVehicleId).sort((a,b)=>new Date(b.date)-new Date(a.date))[0];
+  if(!lastRefuel) return null;
+  const kmFromLast = lastOdo-lastRefuel.km;
+  const fuelUsed = kmFromLast/100*consumption;
+  const fuelLeft = vehicle.tank-lastRefuel.liters+fuelUsed;
+  return Math.round(fuelLeft/consumption*100);
+}
+
+function getMonthlyData(){
+  const data = [];
+  const now = new Date();
+  for(let i=5;i>=0;i--){
+    const month = new Date(now.getFullYear(),now.getMonth()-i,1);
+    const monthEnd = new Date(now.getFullYear(),now.getMonth()-i+1,0);
+    let expense=0;
+    db.refuels.filter(r=>r.vehicleId===db.currentVehicleId).forEach(r=>{
+      const d=new Date(r.date);
+      if(d>=month&&d<=monthEnd) expense+=r.amount;
+    });
+    db.charges.filter(c=>c.vehicleId===db.currentVehicleId).forEach(c=>{
+      const d=new Date(c.date);
+      if(d>=month&&d<=monthEnd){
+        expense += c.type==='home' ? c.kwh*(c.priceKwh||getAvgKwhPrice()||0) : c.amount;
+      }
+    });
+    data.push({month:month.toLocaleDateString('it-IT',{month:'short'}),value:expense});
+  }
+  return data;
+}
+
+function getMixData(){
+  const refuelCost = db.refuels.filter(r=>r.vehicleId===db.currentVehicleId).reduce((s,r)=>s+r.amount,0);
+  const chargeCost = db.charges.filter(c=>c.vehicleId===db.currentVehicleId).reduce((s,c)=>{
+    return s + (c.type==='home' ? c.kwh*(c.priceKwh||getAvgKwhPrice()||0) : c.amount);
+  },0);
+  const total = refuelCost+chargeCost;
+  if(total===0) return {fuel:50,ev:50};
+  return {fuel:refuelCost/total*100,ev:chargeCost/total*100};
+}
+
+// RENDER
+function renderDashboard(){
+  const vehicle = getCurrentVehicle();
+  document.getElementById('currentVehicle').textContent = vehicle?vehicle.name:'Nessun veicolo';
+  
+  const exp = calcMonthlyExpense();
+  document.getElementById('expenseMonth').textContent = formatCurrency(exp.current);
+  const trendEl = document.getElementById('expenseTrend');
+  trendEl.textContent = exp.trend>0 ? `↑ ${exp.trend}%` : exp.trend<0 ? `↓ ${Math.abs(exp.trend)}%` : '→ 0%';
+  trendEl.className = 'trend ' + (exp.trend>0?'up':exp.trend<0?'down':'');
+  
+  document.getElementById('costPerKm').textContent = formatCurrency(calcLastTripCost()) + '/km';
+  document.getElementById('evSaving').textContent = formatCurrency(calcEVSaving());
+  const range = calcRange();
+  document.getElementById('rangeEst').textContent = range?range:'—';
+  document.getElementById('rangeEstSub').textContent = range?'km':'';
+  
+  document.getElementById('totalKm').textContent = formatNumber(getLastOdo())+' km';
+  document.getElementById('avgKwhPrice').textContent = formatCurrency(getAvgKwhPrice())+'/kWh';
+  document.getElementById('avgConsumption').textContent = formatNumber(calcConsumption(),1)+' L/100km';
+  document.getElementById('nextService').textContent = '—';
+  
+  renderBarChart();
+  renderPieChart();
+}
+
+function renderBarChart(){
+  const data = getMonthlyData();
+  const max = Math.max(...data.map(d=>d.value),1);
+  const chart = document.getElementById('barChart');
+  chart.innerHTML = data.map(d=>{
+    const h = d.value/max*140;
+    return `<div class="bar" style="height:${h}px">
+      <div class="bar-value">${d.value>0?'€'+d.value.toFixed(0):''}</div>
+      <div class="bar-label">${d.month}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderPieChart(){
+  const mix = getMixData();
+  document.getElementById('pieChart').style.background = `conic-gradient(var(--teal) 0% ${mix.fuel}%, var(--cyan) ${mix.fuel}% 100%)`;
+  document.getElementById('evPercent').textContent = mix.ev.toFixed(0)+'%';
+}
+
+function renderRefuelList(){
+  const list = document.getElementById('refuelList');
+  const refuels = db.refuels.filter(r=>r.vehicleId===db.currentVehicleId).sort((a,b)=>new Date(b.date)-new Date(a.date));
+  if(!refuels.length){
+    list.innerHTML = '<div class="empty-state"><div class="empty-icon">⛽</div><div>Nessun rifornimento</div></div>';
     return;
   }
-  
-  for (var i = 0; i < db.auto.length; i++) {
-    var a = db.auto[i];
-    var icon = a.tipo === 'bev' ? '⚡' : a.tipo === 'phev' ? '🔋' : a.tipo === 'hybrid' ? '🔄' : '⛽';
-    var item = document.createElement('div');
-    item.className = 'car-item';
-    item.style.border = db.autoCorrente === a.id ? '2px solid var(--teal)' : '1px solid var(--border)';
-    item.onclick = (function(id) {
-      return function() { selezionaAuto(id); };
-    })(a.id);
-    item.innerHTML = '<div class="car-icon">' + icon + '</div>' +
-      '<div class="car-details">' +
-      '<div class="car-name">' + a.nome + '</div>' +
-      '<div class="car-info">' + a.tipo.toUpperCase() + (a.batteria > 0 ? ' · ' + a.batteria + ' kWh' : '') + '</div>' +
-      '</div>';
-    lista.appendChild(item);
-  }
-  
-  var autoCorr = db.auto.find(function(a) { return a.id === db.autoCorrente; });
-  if (autoCorr) {
-    document.getElementById('currentCarName').textContent = autoCorr.nome;
-  }
-  
-  var rif = db.rifornimenti.filter(function(r) { return r.autoId === db.autoCorrente; });
-  var ric = db.ricariche.filter(function(r) { return r.autoId === db.autoCorrente; });
-  var totSpesa = 0, totKm = 0;
-  
-  for (var i = 0; i < rif.length; i++) {
-    totSpesa += rif[i].prezzo;
-    totKm += rif[i].km;
-  }
-  for (var i = 0; i < ric.length; i++) {
-    totSpesa += ric[i].costo;
-    totKm += ric[i].km || 0;
-  }
-  
-  document.getElementById('statTotRif').textContent = rif.length;
-  document.getElementById('statTotRic').textContent = ric.length;
-  document.getElementById('statTotSpesa').textContent = totSpesa.toFixed(0) + '€';
-  document.getElementById('statTotKm').textContent = totKm;
+  list.innerHTML = refuels.map((r,i)=>{
+    const prev = refuels[i+1];
+    const kmDelta = prev&&r.km&&prev.km ? r.km-prev.km : null;
+    const consumption = kmDelta&&kmDelta>0 ? (r.liters/kmDelta*100).toFixed(1) : null;
+    return `<div class="list-item">
+      <div class="list-content">
+        <div class="list-title">${r.liters}L - ${formatCurrency(r.amount)}</div>
+        <div class="list-meta">
+          <span>${formatDate(r.date)}</span>
+          ${r.km?`<span>${r.km} km</span>`:''}
+          ${consumption?`<span>${consumption} L/100km</span>`:''}
+          ${!r.km?'<span class="badge partial">Parziale</span>':''}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
 }
 
-function init() {
-  loadDB();
-  document.getElementById('inputData').value = new Date().toISOString().split('T')[0];
-  if (db.autoCorrente) {
-    var auto = db.auto.find(function(a) { return a.id === db.autoCorrente; });
-    if (auto) document.getElementById('currentCarName').textContent = auto.nome;
+function renderBillList(){
+  const list = document.getElementById('billList');
+  const bills = db.bills.filter(b=>b.vehicleId===db.currentVehicleId).sort((a,b)=>b.period.localeCompare(a.period));
+  if(!bills.length){
+    list.innerHTML = '<div class="empty-state"><div class="empty-icon">💡</div><div>Nessuna bolletta</div></div>';
+    return;
   }
-  updateDashboard();
+  list.innerHTML = bills.map(b=>{
+    const priceKwh = b.kwh>0?b.amount/b.kwh:0;
+    return `<div class="list-item">
+      <div class="list-content">
+        <div class="list-title">${b.kwh} kWh - ${formatCurrency(b.amount)}</div>
+        <div class="list-meta">
+          <span>${b.period}</span>
+          <span>${formatCurrency(priceKwh)}/kWh</span>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
 }
 
-init();
-
-if ('serviceWorker' in navigator) {
-  var swCode = 'self.addEventListener("install",function(e){self.skipWaiting()}),self.addEventListener("activate",function(e){self.clients.claim()}),self.addEventListener("fetch",function(e){e.respondWith(fetch(e.request)["catch"](function(){return new Response("")}))});';
-  var blob = new Blob([swCode], {type: 'application/javascript'});
-  var swUrl = URL.createObjectURL(blob);
-  navigator.serviceWorker.register(swUrl).catch(function(){});
+function renderChargeList(){
+  const list = document.getElementById('chargeList');
+  const charges = db.charges.filter(c=>c.vehicleId===db.currentVehicleId&&c.type===currentChargeTab).sort((a,b)=>new Date(b.date)-new Date(a.date));
+  if(!charges.length){
+    list.innerHTML = '<div class="empty-state"><div class="empty-icon">⚡</div><div>Nessuna ricarica</div></div>';
+    return;
+  }
+  const avgPrice = getAvgKwhPrice();
+  list.innerHTML = charges.map(c=>{
+    const cost = c.type==='home' ? c.kwh*(c.priceKwh||avgPrice||0) : c.amount;
+    return `<div class="list-item">
+      <div class="list-content">
+        <div class="list-title">${c.kwh} kWh - ${formatCurrency(cost)}</div>
+        <div class="list-meta">
+          <span>${formatDate(c.date)}</span>
+          <span>${c.type==='home'?'Casa':'Colonnina'}</span>
+          ${c.type==='home'&&c.priceKwh?`<span>${formatCurrency(c.priceKwh)}/kWh</span>`:''}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
 }
+
+function renderStats(){
+  const vehicle = getCurrentVehicle();
+  if(!vehicle){
+    document.getElementById('yearStats').innerHTML = '<div class="empty-state">Seleziona un veicolo</div>';
+    return;
+  }
+  const now = new Date();
+  const year = now.getFullYear();
+  let totalRefuel=0,totalCharge=0,totalKm=0,totalKwh=0;
+  
+  db.refuels.filter(r=>r.vehicleId===db.currentVehicleId&&new Date(r.date).getFullYear()===year).forEach(r=>totalRefuel+=r.amount);
+  db.charges.filter(c=>c.vehicleId===db.currentVehicleId&&new Date(c.date).getFullYear()===year).forEach(c=>{
+    const cost = c.type==='home' ? c.kwh*(c.priceKwh||getAvgKwhPrice()||0) : c.amount;
+    totalCharge+=cost;
+    totalKwh+=c.kwh;
+  });
+  const refuels = db.refuels.filter(r=>r.vehicleId===db.currentVehicleId&&r.km).sort((a,b)=>a.km-b.km);
+  if(refuels.length>=2&&new Date(refuels[0].date).getFullYear()===year){
+    totalKm = refuels[refuels.length-1].km-refuels[0].km;
+  }
+  
+  document.getElementById('yearStats').innerHTML = `
+    <div class="stat-row"><span class="stat-label">Anno ${year}</span><span class="stat-value"></span></div>
+    <div class="stat-row"><span class="stat-label">Spesa Carburante</span><span class="stat-value">${formatCurrency(totalRefuel)}</span></div>
+    <div class="stat-row"><span class="stat-label">Spesa Elettricità</span><span class="stat-value">${formatCurrency(totalCharge)}</span></div>
+    <div class="stat-row"><span class="stat-label">Totale Spesa</span><span class="stat-value">${formatCurrency(totalRefuel+totalCharge)}</span></div>
+    <div class="stat-row"><span class="stat-label">Km Percorsi</span><span class="stat-value">${formatNumber(totalKm)} km</span></div>
+    <div class="stat-row"><span class="stat-label">kWh Caricati</span><span class="stat-value">${formatNumber(totalKwh,1)} kWh</span></div>
+    <div class="stat-row"><span class="stat-label">Costo Medio/km</span><span class="stat-value">${totalKm>0?formatCurrency((totalRefuel+totalCharge)/totalKm)+'/km':'—'}</span></div>
+  `;
+}
+
+function renderVehicleList(){
+  const list = document.getElementById('vehicleList');
+  if(!db.vehicles.length){
+    list.innerHTML = '<div class="empty-state"><div class="empty-icon">🚗</div><div>Nessun veicolo</div></div>';
+    return;
+  }
+  list.innerHTML = db.vehicles.map(v=>{
+    const isActive = v.id===db.currentVehicleId;
+    return `<div class="list-item" style="${isActive?'background:linear-gradient(135deg,var(--teal),var(--cyan));color:white':''}">
+      <div class="list-content">
+        <div class="list-title">${v.name}</div>
+        <div class="list-meta">
+          ${v.plate?`<span>${v.plate}</span>`:''}
+          <span>${v.battery}kWh / ${v.tank}L</span>
+        </div>
+      </div>
+      ${!isActive?`<button class="btn btn-secondary" style="width:auto;padding:6px 12px;margin:0" onclick="selectVehicle('${v.id}')">Seleziona</button>`:''}
+    </div>`;
+  }).join('');
+}
+
+// NAVIGATION
+function switchView(view){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById('view-'+view).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  event?.currentTarget?.classList.add('active');
+  
+  if(view==='home') renderDashboard();
+  else if(view==='refuel') renderRefuelList();
+  else if(view==='bill') renderBillList();
+  else if(view==='charge') renderChargeList();
+  else if(view==='stats') renderStats();
+  else if(view==='vehicle') renderVehicleList();
+}
+
+function switchChargeTab(tab,e){
+  currentChargeTab = tab;
+  document.querySelectorAll('#view-charge .tab').forEach(t=>t.classList.remove('active'));
+  e.target.classList.add('active');
+  renderChargeList();
+}
+
+function openModal(type){
+  document.getElementById('modal-'+type).classList.add('active');
+  if(type==='refuel'){
+    document.getElementById('refuelDate').value = new Date().toISOString().split('T')[0];
+  }else if(type==='charge'){
+    document.getElementById('chargeDate').value = new Date().toISOString().split('T')[0];
+    const lastOdo = getLastOdo();
+    if(lastOdo) document.getElementById('chargeKwh').placeholder = `es. 12.5 (Odo: ${lastOdo} km)`;
+  }
+}
+
+function closeModal(type){
+  document.getElementById('modal-'+type).classList.remove('active');
+}
+
+function openQuickAdd(){
+  openModal('quick');
+}
+
+function selectVehicle(id){
+  db.currentVehicleId = id;
+  saveDB();
+  renderDashboard();
+  renderVehicleList();
+  showToast('Veicolo selezionato');
+}
+
+// FORMS
+document.getElementById('formRefuel').addEventListener('submit',e=>{
+  e.preventDefault();
+  if(!db.currentVehicleId){showToast('Seleziona un veicolo prima','error');return}
+  const liters = parseFloat(document.getElementById('refuelLiters').value);
+  const amount = parseFloat(document.getElementById('refuelAmount').value);
+  const km = document.getElementById('refuelKm').value ? parseInt(document.getElementById('refuelKm').value) : null;
+  
+  db.refuels.push({
+    id:Date.now().toString(),
+    vehicleId:db.currentVehicleId,
+    date:document.getElementById('refuelDate').value,
+    liters,amount,km,
+    priceLiter:amount/liters
+  });
+  saveDB();
+  closeModal('refuel');
+  e.target.reset();
+  renderDashboard();
+  renderRefuelList();
+  showToast('Rifornimento salvato');
+});
+
+document.getElementById('refuelAmount').addEventListener('input',()=>{
+  const liters = parseFloat(document.getElementById('refuelLiters').value);
+  const amount = parseFloat(document.getElementById('refuelAmount').value);
+  if(liters>0&&amount>0){
+    document.getElementById('refuelPriceLiter').value = (amount/liters).toFixed(3);
+  }
+});
+
+document.getElementById('formBill').addEventListener('submit',e=>{
+  e.preventDefault();
+  if(!db.currentVehicleId){showToast('Seleziona un veicolo prima','error');return}
+  const kwh = parseFloat(document.getElementById('billKwh').value);
+  const amount = parseFloat(document.getElementById('billAmount').value);
+  
+  db.bills.push({
+    id:Date.now().toString(),
+    vehicleId:db.currentVehicleId,
+    period:document.getElementById('billPeriod').value,
+    kwh,amount
+  });
+  saveDB();
+  closeModal('bill');
+  e.target.reset();
+  renderDashboard();
+  renderBillList();
+  showToast('Bolletta salvata');
+});
+
+document.getElementById('billAmount').addEventListener('input',()=>{
+  const kwh = parseFloat(document.getElementById('billKwh').value);
+  const amount = parseFloat(document.getElementById('billAmount').value);
+  if(kwh>0&&amount>0){
+    document.getElementById('billPriceKwh').value = (amount/kwh).toFixed(3);
+  }
+});
+
+document.getElementById('chargeType').addEventListener('change',e=>{
+  const isHome = e.target.value==='home';
+  document.getElementById('chargePriceGroup').style.display = isHome?'block':'none';
+  document.getElementById('chargeAmountGroup').style.display = isHome?'none':'block';
+  if(isHome){
+    const avgPrice = getAvgKwhPrice();
+    document.getElementById('chargePriceKwh').placeholder = avgPrice?`Auto: ${formatCurrency(avgPrice)}/kWh`:'es. 0.250';
+  }
+});
+
+document.getElementById('formCharge').addEventListener('submit',e=>{
+  e.preventDefault();
+  if(!db.currentVehicleId){showToast('Seleziona un veicolo prima','error');return}
+  const type = document.getElementById('chargeType').value;
+  const kwh = parseFloat(document.getElementById('chargeKwh').value);
+  const charge = {
+    id:Date.now().toString(),
+    vehicleId:db.currentVehicleId,
+    date:document.getElementById('chargeDate').value,
+    kwh,type
+  };
+  if(type==='home'){
+    charge.priceKwh = document.getElementById('chargePriceKwh').value?parseFloat(document.getElementById('chargePriceKwh').value):getAvgKwhPrice();
+  }else{
+    charge.amount = parseFloat(document.getElementById('chargeAmount').value);
+  }
+  db.charges.push(charge);
+  saveDB();
+  closeModal('charge');
+  e.target.reset();
+  renderDashboard();
+  renderChargeList();
+  showToast('Ricarica salvata');
+});
+
+document.getElementById('formVehicle').addEventListener('submit',e=>{
+  e.preventDefault();
+  const vehicle = {
+    id:Date.now().toString(),
+    name:document.getElementById('vehicleName').value,
+    plate:document.getElementById('vehiclePlate').value,
+    battery:parseFloat(document.getElementById('vehicleBattery').value),
+    tank:parseFloat(document.getElementById('vehicleTank').value)
+  };
+  db.vehicles.push(vehicle);
+  if(!db.currentVehicleId) db.currentVehicleId = vehicle.id;
+  saveDB();
+  closeModal('vehicle');
+  e.target.reset();
+  renderDashboard();
+  renderVehicleList();
+  showToast('Veicolo aggiunto');
+});
+
+// INIT
+loadDB();
+if(!db.vehicles.length){
+  setTimeout(()=>showToast('Aggiungi il tuo primo veicolo!'),500);
+}
+renderDashboard();
 </script>
 </body>
 </html>
